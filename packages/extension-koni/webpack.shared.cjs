@@ -36,7 +36,7 @@ const packages = [
   'extension-inject',
   'extension-koni',
   'extension-koni-ui',
-  'subwallet-api-sdk'
+  'bitriel-api-sdk'
 ];
 
 const _additionalEnv = {
@@ -183,9 +183,12 @@ module.exports = (entry, alias = {}, isFirefox = false) => {
     resolve: {
       alias: packages.reduce((alias, p) => ({
         ...alias,
-        [`@subwallet/${p}`]: path.resolve(__dirname, `../${p}/src`)
+        [`@bitriel/${p}`]: path.resolve(__dirname, `../${p}/src`)
       }), {
         ...alias,
+        '@bitriel/extension-inject/crossenv': path.resolve(__dirname, '../extension-inject/src/crossenv'),
+        '@bitriel/extension-koni-ui': path.resolve(__dirname, '../extension-koni-ui/src'),
+        '@bitriel/extension-base': path.resolve(__dirname, '../extension-base/src'),
         'react/jsx-runtime': require.resolve('react/jsx-runtime'),
         axios_raw: path.resolve(__dirname, '../../node_modules/axios'),
         axios: path.resolve(__dirname, 'axios.global.js')

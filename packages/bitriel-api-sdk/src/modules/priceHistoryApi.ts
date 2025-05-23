@@ -1,17 +1,28 @@
 // Copyright 2019-2022 @bitriel/extension-base authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { SWApiResponse } from '@subwallet/subwallet-api-sdk/types';
+import { SWApiResponse } from '@bitriel/bitriel-api-sdk/types';
 
-export class BalanceDetectionApi {
+type Timeframe = '1D' | '1W' | '1M' | '3M' | 'YTD' | '1Y' | 'ALL';
+
+export interface PriceChartPoint {
+  time: number;
+  value: number;
+}
+
+interface HistoryTokenPriceJSON {
+  history: PriceChartPoint[];
+}
+
+export class PriceHistoryApi {
   private baseUrl: string;
 
   constructor (baseUrl: string) {
     this.baseUrl = baseUrl;
   }
 
-  async getEvmTokenBalanceSlug (address: string): Promise<string[]> {
-    const url = `${this.baseUrl}/balance-detection/get-token-slug?address=${address}`;
+  async getPriceHistory (token: string, type: Timeframe): Promise<HistoryTokenPriceJSON> {
+    const url = `${this.baseUrl}/price-history?token=${token}&type=${type}`;
 
     try {
       const rawResponse = await fetch(url, {
@@ -21,7 +32,7 @@ export class BalanceDetectionApi {
         }
       });
 
-      const response = await rawResponse.json() as SWApiResponse<string[]>;
+      const response = await rawResponse.json() as SWApiResponse<HistoryTokenPriceJSON>;
 
       if (response.error) {
         throw new Error(response.error.message);

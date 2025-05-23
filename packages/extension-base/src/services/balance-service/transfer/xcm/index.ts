@@ -16,7 +16,7 @@ import { _EvmApi, _SubstrateApi } from '@bitriel/extension-base/services/chain-s
 import { _isNativeToken } from '@bitriel/extension-base/services/chain-service/utils';
 import { EvmEIP1559FeeOption, EvmFeeInfo, FeeInfo, RuntimeDispatchInfo, TransactionFee } from '@bitriel/extension-base/types';
 import { combineEthFee } from '@bitriel/extension-base/utils';
-import subwalletApiSdk from '@subwallet/subwallet-api-sdk';
+import subwalletApiSdk from '@bitriel/bitriel-api-sdk';
 import { TransactionConfig } from 'web3-core';
 
 import { SubmittableExtrinsic } from '@polkadot/api/types';

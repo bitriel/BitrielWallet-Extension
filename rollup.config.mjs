@@ -11,7 +11,7 @@ import path from 'path';
 import pluginCleanup from 'rollup-plugin-cleanup';
 
 function sanitizePkg (pkg) {
-  return pkg.replace('@subwallet/', '');
+  return pkg.replace('@bitriel/', '');
 }
 
 function createName (input) {
@@ -81,7 +81,7 @@ const external = [
 
 const entries = ['extension-base', 'extension-chains', 'extension-inject'].reduce((all, p) => ({
   ...all,
-  [`@subwallet/${p}`]: path.resolve(process.cwd(), `packages/${p}/build`)
+  [`@bitriel/${p}`]: path.resolve(process.cwd(), `packages/${p}/build`)
 }), {});
 
 const overrides = {};

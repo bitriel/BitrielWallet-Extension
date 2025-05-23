@@ -4,7 +4,7 @@
 import { CurrencyJson, CurrencyType, ExchangeRateJSON, HistoryTokenPriceJSON, PriceChartTimeframe, PriceJson } from '@bitriel/extension-base/background/KoniTypes';
 import { isProductionMode } from '@bitriel/extension-base/constants';
 import { staticData, StaticKey } from '@bitriel/extension-base/utils/staticData';
-import { subwalletApiSdk } from '@subwallet/subwallet-api-sdk';
+import { subwalletApiSdk } from '@bitriel/bitriel-api-sdk';
 
 import { isArray } from '@polkadot/util';
 

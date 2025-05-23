@@ -50,7 +50,7 @@ import { addLazy, isManifestV3, isSameAddress, reformatAddress, stripUrl, target
 import { convertCardanoHexToBech32 } from '@bitriel/extension-base/utils/cardano';
 import { createPromiseHandler } from '@bitriel/extension-base/utils/promise';
 import { MetadataDef, ProviderMeta } from '@bitriel/extension-inject/types';
-import subwalletApiSdk from '@subwallet/subwallet-api-sdk';
+import subwalletApiSdk from '@bitriel/bitriel-api-sdk';
 import { keyring } from '@subwallet/ui-keyring';
 import BN from 'bn.js';
 import { t } from 'i18next';

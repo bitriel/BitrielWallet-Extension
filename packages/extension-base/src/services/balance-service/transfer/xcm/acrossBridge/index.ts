@@ -3,7 +3,7 @@
 
 import { COMMON_CHAIN_SLUGS } from '@bitriel/chain-list';
 import { _isAcrossBridgeXcm } from '@bitriel/extension-base/core/substrate/xcm-parser';
-import subwalletApiSdk from '@subwallet/subwallet-api-sdk';
+import subwalletApiSdk from '@bitriel/bitriel-api-sdk';
 
 import { CreateXcmExtrinsicProps } from '..';
 

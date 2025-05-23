@@ -6,7 +6,7 @@ import { _SubstrateApi } from '@bitriel/extension-base/services/chain-service/ty
 import { _getAssetDecimals, _getAssetPriceId, _getTokenOnChainAssetId } from '@bitriel/extension-base/services/chain-service/utils';
 import { RequestAssetHubTokensCanPayFee, RequestHydrationTokensCanPayFee, TokenHasBalanceInfo } from '@bitriel/extension-base/services/fee-service/interfaces';
 import { checkLiquidityForPool, estimateTokensForPool, getReserveForPool } from '@bitriel/extension-base/services/swap-service/handler/asset-hub/utils';
-import subwalletApiSdk from '@subwallet/subwallet-api-sdk';
+import subwalletApiSdk from '@bitriel/bitriel-api-sdk';
 import BigN from 'bignumber.js';
 
 import { SubmittableExtrinsic } from '@polkadot/api/promise/types';

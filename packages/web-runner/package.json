@@ -6,7 +6,7 @@
   "homepage": "https://github.com/bitriel/BitrielWallet-Extension/tree/master/packages/web-runner#readme",
   "license": "Apache-2.0",
   "maintainers": [],
-  "name": "@subwallet/web-runner",
+  "name": "@bitriel/web-runner",
   "repository": {
     "directory": "packages/web-runner",
     "type": "git",
@@ -14,12 +14,12 @@
   },
   "sideEffects": false,
   "type": "module",
-  "version": "1.3.36-0",
+  "version": "1.0.0",
   "dependencies": {
     "@babel/runtime": "^7.20.6",
-    "@bitriel/extension-base": "^1.3.36-0",
-    "@bitriel/extension-inject": "^1.3.36-0",
-    "@bitriel/extension-koni-ui": "^1.3.36-0",
+    "@bitriel/extension-base": "^1.0.0",
+    "@bitriel/extension-inject": "^1.0.0",
+    "@bitriel/extension-koni-ui": "^1.0.0",
     "@emurgo/cardano-serialization-lib-browser": "^13.2.0"
   },
   "devDependencies": {

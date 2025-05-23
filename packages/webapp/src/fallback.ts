@@ -1,4 +1,4 @@
-// Copyright 2019-2022 @subwallet/webapp authors & contributors
+// Copyright 2019-2022 @bitriel/webapp authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
 import { SWStorage } from '@bitriel/extension-base/storage';

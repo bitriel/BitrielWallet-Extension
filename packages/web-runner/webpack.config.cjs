@@ -44,7 +44,7 @@ const packages = [
   'extension-inject',
   'extension-koni',
   'extension-koni-ui',
-  'subwallet-api-sdk'
+  'bitriel-api-sdk'
 ];
 
 const polkadotDevOptions = require('@polkadot/dev/config/babel-config-webpack.cjs');
@@ -94,7 +94,7 @@ const createConfig = (entry, alias = {}, useSplitChunk = false) => {
     module: {
       rules: [
         {
-          exclude: /(node_modules\/(?!(@equilab|@subwallet|@polkadot\/rpc-core)).*)/,
+          exclude: /(node_modules\/(?!(@equilab|@bitriel|@polkadot\/rpc-core)).*)/,
           test: /\.(js|mjs|ts|tsx)$/,
           use: [
             {
@@ -171,7 +171,7 @@ const createConfig = (entry, alias = {}, useSplitChunk = false) => {
     resolve: {
       alias: packages.reduce((alias, p) => ({
         ...alias,
-        [`@subwallet/${p}`]: path.resolve(__dirname, `../${p}/src`)
+        [`@bitriel/${p}`]: path.resolve(__dirname, `../${p}/src`)
       }), {
         ...alias,
         'react/jsx-runtime': require.resolve('react/jsx-runtime')

@@ -6,7 +6,7 @@ import { _AssetType, _ChainAsset } from '@bitriel/chain-list/types';
 import { CardanoTxJson, CardanoTxOutput } from '@bitriel/extension-base/services/balance-service/helpers/subscribe/cardano/types';
 import { CardanoAssetMetadata, getAdaBelongUtxo, getCardanoTxFee, splitCardanoId } from '@bitriel/extension-base/services/balance-service/helpers/subscribe/cardano/utils';
 import { _CardanoApi } from '@bitriel/extension-base/services/chain-service/types';
-import { subwalletApiSdk } from '@subwallet/subwallet-api-sdk';
+import { subwalletApiSdk } from '@bitriel/bitriel-api-sdk';
 
 export interface CardanoTransactionConfigProps {
   tokenInfo: _ChainAsset;

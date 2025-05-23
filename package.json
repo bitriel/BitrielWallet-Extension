@@ -45,8 +45,8 @@
     "start": "yarn watch",
     "test": "polkadot-dev-run-test --detectOpenHandles --testPathIgnorePatterns='/node_modules/|.*/ignore-.*\\.(test|spec)\\..*'",
     "test:one": "polkadot-dev-run-test --detectOpenHandles",
-    "update:polkadot-libs": "yarn up @polkadot/api @polkadot/api-base @polkadot/rpc-provider @polkadot/api-contract @polkadot/networks @polkadot/types @polkadot/types-augment @polkadot/types-known @polkadot/util @polkadot/util-crypto @polkadot/api-derive @polkadot/apps-config @polkadot/ui-settings @polkadot/hw-ledger @polkadot/phishing @polkadot/util @polkadot/util-crypto @polkadot/x-global",
     "update:bitriel-libs": "yarn up @bitriel/chain-list @subwallet/keyring @subwallet/ui-keyring",
+    "update:polkadot-libs": "yarn up @polkadot/api @polkadot/api-base @polkadot/rpc-provider @polkadot/api-contract @polkadot/networks @polkadot/types @polkadot/types-augment @polkadot/types-known @polkadot/util @polkadot/util-crypto @polkadot/api-derive @polkadot/apps-config @polkadot/ui-settings @polkadot/hw-ledger @polkadot/phishing @polkadot/util @polkadot/util-crypto @polkadot/x-global",
     "watch": "cd packages/extension-koni && yarn polkadot-exec-webpack --config webpack.config.cjs --mode development --watch",
     "watch-dev": "cd packages/extension-koni && yarn polkadot-exec-webpack --config webpack.config.cjs --mode development --watch -d inline-source-map",
     "web-runner:build": "cd packages/web-runner && rm -rf ./build && yarn webpack --config webpack.config.cjs --mode production",
@@ -84,6 +84,7 @@
     "sinon-chrome": "^3.0.1"
   },
   "resolutions": {
+    "@bitriel/chain-list": "1.0.0",
     "@ethereumjs/common": "^4.1.0",
     "@ethereumjs/tx": "^5.1.0",
     "@google/model-viewer": "3.1.1",
@@ -106,7 +107,6 @@
     "@polkadot/util": "^13.4.3",
     "@polkadot/util-crypto": "^13.4.3",
     "@polkadot/x-global": "^13.4.3",
-    "@bitriel/chain-list": "1.0.0",
     "@subwallet/keyring": "^0.1.11",
     "@subwallet/react-ui": "5.1.2-b79",
     "@subwallet/ui-keyring": "^0.1.11",

@@ -1,10 +1,10 @@
 // Copyright 2019-2022 @bitriel/extension-base authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { fetchUnsignedPayload } from '@subwallet/subwallet-api-sdk/cardano';
-import { BuildCardanoTxParams } from '@subwallet/subwallet-api-sdk/cardano/utils';
-import { BalanceDetectionApi } from '@subwallet/subwallet-api-sdk/modules/balanceDetectionApi';
-import { PriceHistoryApi } from '@subwallet/subwallet-api-sdk/modules/priceHistoryApi';
+import { fetchUnsignedPayload } from '@bitriel/bitriel-api-sdk/cardano';
+import { BuildCardanoTxParams } from '@bitriel/bitriel-api-sdk/cardano/utils';
+import { BalanceDetectionApi } from '@bitriel/bitriel-api-sdk/modules/balanceDetectionApi';
+import { PriceHistoryApi } from '@bitriel/bitriel-api-sdk/modules/priceHistoryApi';
 
 import { SwapApi } from './modules/swapApi';
 import { XcmApi } from './modules/xcmApi';

@@ -15,7 +15,7 @@ import { BalanceItem, BalanceJson, CommonOptimalTransferPath } from '@bitriel/ex
 import { addLazy, createPromiseHandler, isAccountAll, PromiseHandler, waitTimeout } from '@bitriel/extension-base/utils';
 import { getKeypairTypeByAddress } from '@subwallet/keyring';
 import { EthereumKeypairTypes, SubstrateKeypairTypes } from '@subwallet/keyring/types';
-import subwalletApiSdk from '@subwallet/subwallet-api-sdk';
+import subwalletApiSdk from '@bitriel/bitriel-api-sdk';
 import keyring from '@subwallet/ui-keyring';
 import BigN from 'bignumber.js';
 import { t } from 'i18next';

@@ -1,4 +1,4 @@
-// Copyright 2019-2022 @subwallet/webapp authors & contributors
+// Copyright 2019-2022 @bitriel/webapp authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
 import { RequestSignatures, TransportRequestMessage, TransportResponseMessage } from '@bitriel/extension-base/background/types';

@@ -19,12 +19,12 @@
         "@bitriel/extension-koni-ui/*": ["extension-koni-ui/src/*"],
         "@bitriel/extension-web-ui": ["extension-web-ui/src"],
         "@bitriel/extension-web-ui/*": ["extension-web-ui/src/*"],
-        "@subwallet/web-runner": ["web-runner/src"],
-        "@subwallet/web-runner/*": ["web-runner/src/*"],
-        "@subwallet/webapp": ["webapp/src"],
-        "@subwallet/webapp/*": ["webapp/src/*"],
-        "@subwallet/subwallet-api-sdk": ["subwallet-api-sdk/src"],
-        "@subwallet/subwallet-api-sdk/*": ["subwallet-api-sdk/src/*"]
+        "@bitriel/web-runner": ["web-runner/src"],
+        "@bitriel/web-runner/*": ["web-runner/src/*"],
+        "@bitriel/webapp": ["webapp/src"],
+        "@bitriel/webapp/*": ["webapp/src/*"],
+        "@bitriel/bitriel-api-sdk": ["bitriel-api-sdk/src"],
+        "@bitriel/bitriel-api-sdk/*": ["bitriel-api-sdk/src/*"]
     },
     "skipLibCheck": true
 	}

@@ -1,4 +1,4 @@
-// Copyright 2019-2022 @subwallet/web-runner authors & contributors
+// Copyright 2019-2022 @bitriel/web-runner authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
 // eslint-disable-next-line header/header

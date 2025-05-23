@@ -1,11 +1,11 @@
 // Copyright 2019-2022 @bitriel/extension-base authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import * as CardanoWasm from '@emurgo/cardano-serialization-lib-nodejs';
 import { CardanoBalanceItem, CardanoUtxosItem } from '@bitriel/extension-base/services/balance-service/helpers/subscribe/cardano/types';
 import { MetadataStore } from '@bitriel/extension-base/stores';
 import { addMetadata } from '@bitriel/extension-chains';
 import { MetadataDef } from '@bitriel/extension-inject/types';
+import * as CardanoWasm from '@emurgo/cardano-serialization-lib-nodejs';
 
 import { knownGenesis } from '@polkadot/networks/defaults';
 import { HexString } from '@polkadot/util/types';

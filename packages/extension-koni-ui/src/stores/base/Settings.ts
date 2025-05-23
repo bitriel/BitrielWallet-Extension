@@ -1,12 +1,12 @@
 // Copyright 2019-2022 @polkadot/extension-ui authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { createSlice, PayloadAction } from '@reduxjs/toolkit/dist';
 import { ThemeNames, UiSettings } from '@bitriel/extension-base/background/KoniTypes';
 import { LANGUAGE } from '@bitriel/extension-base/constants';
 import { AuthUrlInfo } from '@bitriel/extension-base/services/request-service/types';
 import { DEFAULT_SETTING } from '@bitriel/extension-base/services/setting-service/constants';
 import { AppSettings, ReduxStatus } from '@bitriel/extension-koni-ui/stores/types';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit/dist';
 
 import settings from '@polkadot/ui-settings';
 

@@ -1,6 +1,7 @@
 // Copyright 2019-2022 @bitriel/extension-base
 // SPDX-License-Identifier: Apache-2.0
 
+import subwalletApiSdk from '@bitriel/bitriel-api-sdk';
 import { COMMON_CHAIN_SLUGS } from '@bitriel/chain-list';
 import { _AssetRefPath } from '@bitriel/chain-list/types';
 import { SwapError } from '@bitriel/extension-base/background/errors/SwapError';
@@ -21,7 +22,6 @@ import { ActionPair, BasicTxErrorType, DynamicSwapAction, DynamicSwapType, Optim
 import { CommonOptimalSwapPath, DEFAULT_FIRST_STEP, MOCK_STEP_FEE } from '@bitriel/extension-base/types/service-base';
 import { _SUPPORTED_SWAP_PROVIDERS, QuoteAskResponse, SwapErrorType, SwapPair, SwapProviderId, SwapQuote, SwapQuoteResponse, SwapRequestResult, SwapStepType, SwapSubmitParams, SwapSubmitStepData } from '@bitriel/extension-base/types/swap';
 import { _reformatAddressWithChain, createPromiseHandler, PromiseHandler, reformatAddress } from '@bitriel/extension-base/utils';
-import subwalletApiSdk from '@bitriel/bitriel-api-sdk';
 import BigN from 'bignumber.js';
 import { t } from 'i18next';
 import { BehaviorSubject } from 'rxjs';

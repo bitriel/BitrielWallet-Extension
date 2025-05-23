@@ -1,10 +1,10 @@
 // Copyright 2019-2022 @polkadot/extension-ui authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { _AssetRef, _ChainAsset, _MultiChainAsset } from '@bitriel/chain-list/types';
 import { AssetSetting } from '@bitriel/extension-base/background/KoniTypes';
 import { AssetRegistryStore, ReduxStatus } from '@bitriel/extension-koni-ui/stores/types';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 const initialState: AssetRegistryStore = {
   assetRegistry: {},

@@ -1,7 +1,7 @@
 // Copyright 2019-2022 @bitriel/extension-koni authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import * as CardanoWasm from '@emurgo/cardano-serialization-lib-nodejs';
+import subwalletApiSdk from '@bitriel/bitriel-api-sdk';
 import { _AssetRef, _AssetType, _ChainAsset, _ChainInfo, _MultiChainAsset } from '@bitriel/chain-list/types';
 import { CardanoProviderError } from '@bitriel/extension-base/background/errors/CardanoProviderError';
 import { EvmProviderError } from '@bitriel/extension-base/background/errors/EvmProviderError';
@@ -50,7 +50,7 @@ import { addLazy, isManifestV3, isSameAddress, reformatAddress, stripUrl, target
 import { convertCardanoHexToBech32 } from '@bitriel/extension-base/utils/cardano';
 import { createPromiseHandler } from '@bitriel/extension-base/utils/promise';
 import { MetadataDef, ProviderMeta } from '@bitriel/extension-inject/types';
-import subwalletApiSdk from '@bitriel/bitriel-api-sdk';
+import * as CardanoWasm from '@emurgo/cardano-serialization-lib-nodejs';
 import { keyring } from '@subwallet/ui-keyring';
 import BN from 'bn.js';
 import { t } from 'i18next';

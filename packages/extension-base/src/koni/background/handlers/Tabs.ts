@@ -3,7 +3,6 @@
 
 import type { InjectedAccount } from '@bitriel/extension-inject/types';
 
-import * as CardanoWasm from '@emurgo/cardano-serialization-lib-nodejs';
 import { _AssetType } from '@bitriel/chain-list/types';
 import { CardanoProviderError } from '@bitriel/extension-base/background/errors/CardanoProviderError';
 import { EvmProviderError } from '@bitriel/extension-base/background/errors/EvmProviderError';
@@ -25,6 +24,7 @@ import { AuthUrlInfo, AuthUrls } from '@bitriel/extension-base/services/request-
 import { DEFAULT_CHAIN_PATROL_ENABLE } from '@bitriel/extension-base/services/setting-service/constants';
 import { convertCardanoAddressToHex, getEVMChainInfo, reformatAddress, stripUrl } from '@bitriel/extension-base/utils';
 import { InjectedMetadataKnown, MetadataDef, ProviderMeta } from '@bitriel/extension-inject/types';
+import * as CardanoWasm from '@emurgo/cardano-serialization-lib-nodejs';
 import { CardanoKeypairTypes, EthereumKeypairTypes, SubstrateKeypairTypes, TonKeypairTypes } from '@subwallet/keyring/types';
 import { keyring } from '@subwallet/ui-keyring';
 import { SingleAddress, SubjectInfo } from '@subwallet/ui-keyring/observable/types';

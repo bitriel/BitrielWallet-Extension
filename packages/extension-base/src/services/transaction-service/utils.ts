@@ -1,12 +1,12 @@
 // Copyright 2019-2022 @bitriel/extension-base authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
+import { SWApiResponse } from '@bitriel/bitriel-api-sdk/types';
 import { _ChainInfo } from '@bitriel/chain-list/types';
 import { ExtrinsicDataTypeMap, ExtrinsicsDataResponse, ExtrinsicType } from '@bitriel/extension-base/background/KoniTypes';
 import { _getBlockExplorerFromChain, _isChainTestNet, _isPureCardanoChain, _isPureEvmChain } from '@bitriel/extension-base/services/chain-service/utils';
 import { CHAIN_FLIP_MAINNET_EXPLORER, CHAIN_FLIP_TESTNET_EXPLORER, SIMPLE_SWAP_EXPLORER } from '@bitriel/extension-base/services/swap-service/utils';
 import { ChainflipSwapTxData, SimpleSwapTxData } from '@bitriel/extension-base/types/swap';
-import { SWApiResponse } from '@bitriel/bitriel-api-sdk/types';
 
 import { hexAddPrefix, isHex, u8aToHex } from '@polkadot/util';
 import { decodeAddress } from '@polkadot/util-crypto';

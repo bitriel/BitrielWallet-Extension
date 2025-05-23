@@ -1,11 +1,11 @@
 // Copyright 2019-2022 @bitriel/extension-base authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { formatJsonRpcError, formatJsonRpcResult } from '@json-rpc-tools/utils';
 import KoniState from '@bitriel/extension-base/koni/background/handlers/State';
 import WalletConnectService from '@bitriel/extension-base/services/wallet-connect-service';
 import { getWCId, parseRequestParams } from '@bitriel/extension-base/services/wallet-connect-service/helpers';
 import { EIP155_SIGNING_METHODS } from '@bitriel/extension-base/services/wallet-connect-service/types';
+import { formatJsonRpcError, formatJsonRpcResult } from '@json-rpc-tools/utils';
 import { SignClientTypes } from '@walletconnect/types';
 import { getSdkError } from '@walletconnect/utils';
 

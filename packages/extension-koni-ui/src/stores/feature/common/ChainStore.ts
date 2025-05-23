@@ -1,11 +1,11 @@
 // Copyright 2019-2022 @polkadot/extension-ui authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { _ChainInfo } from '@bitriel/chain-list/types';
 import { TokenPriorityDetails } from '@bitriel/extension-base/background/KoniTypes';
 import { _ChainApiStatus, _ChainState } from '@bitriel/extension-base/services/chain-service/types';
 import { ChainStore, ReduxStatus } from '@bitriel/extension-koni-ui/stores/types';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 const initialState: ChainStore = {
   chainInfoMap: {},

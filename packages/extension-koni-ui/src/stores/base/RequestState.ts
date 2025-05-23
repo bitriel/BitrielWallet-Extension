@@ -1,13 +1,13 @@
 // Copyright 2019-2022 @polkadot/extension-ui authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { ConfirmationsQueue, ConfirmationsQueueCardano, ConfirmationsQueueTon } from '@bitriel/extension-base/background/KoniTypes';
 import { AuthorizeRequest, ConfirmationRequestBase, MetadataRequest, SigningRequest } from '@bitriel/extension-base/background/types';
 import { SWTransactionResult } from '@bitriel/extension-base/services/transaction-service/types';
 import { WalletConnectNotSupportRequest, WalletConnectSessionRequest } from '@bitriel/extension-base/services/wallet-connect-service/types';
 import { ProcessTransactionData } from '@bitriel/extension-base/types';
 import { ReduxStatus, RequestState } from '@bitriel/extension-koni-ui/stores/types';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 const initialState: RequestState = {
   authorizeRequest: {},

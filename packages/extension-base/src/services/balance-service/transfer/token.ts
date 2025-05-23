@@ -1,7 +1,6 @@
 // Copyright 2019-2022 @bitriel/extension-base
 // SPDX-License-Identifier: Apache-2.0
 
-import { GearApi } from '@gear-js/api';
 import { _AssetType, _ChainAsset, _ChainInfo } from '@bitriel/chain-list/types';
 import { getPSP22ContractPromise } from '@bitriel/extension-base/koni/api/contract-handler/wasm';
 import { getWasmContractGasLimit } from '@bitriel/extension-base/koni/api/contract-handler/wasm/utils';
@@ -11,6 +10,7 @@ import { _EvmApi, _SubstrateApi, _TonApi } from '@bitriel/extension-base/service
 import { _getContractAddressOfToken, _getTokenOnChainAssetId, _getTokenOnChainInfo, _getXcmAssetMultilocation, _isBridgedToken, _isChainEvmCompatible, _isChainTonCompatible, _isNativeToken, _isTokenGearSmartContract, _isTokenTransferredByEvm, _isTokenTransferredByTon, _isTokenWasmSmartContract } from '@bitriel/extension-base/services/chain-service/utils';
 import { calculateGasFeeParams } from '@bitriel/extension-base/services/fee-service/utils';
 import { combineEthFee, getGRC20ContractPromise, getVFTContractPromise } from '@bitriel/extension-base/utils';
+import { GearApi } from '@gear-js/api';
 import { keyring } from '@subwallet/ui-keyring';
 import { internal } from '@ton/core';
 import { Address } from '@ton/ton';

@@ -1,13 +1,13 @@
 // Copyright 2019-2022 @bitriel/extension-base
 // SPDX-License-Identifier: Apache-2.0
 
-import { GearApi } from '@gear-js/api';
 import { _AssetType } from '@bitriel/chain-list/types';
 import { APIItemState } from '@bitriel/extension-base/background/KoniTypes';
 import { SUB_TOKEN_REFRESH_BALANCE_INTERVAL } from '@bitriel/extension-base/constants';
 import { _getContractAddressOfToken } from '@bitriel/extension-base/services/chain-service/utils';
 import { BalanceItem, SubscribeSubstratePalletBalance } from '@bitriel/extension-base/types';
 import { filterAssetsByChainAndType, getGRC20ContractPromise, getVFTContractPromise, GRC20, VFT } from '@bitriel/extension-base/utils';
+import { GearApi } from '@gear-js/api';
 
 import { noop, u8aToHex } from '@polkadot/util';
 import { decodeAddress } from '@polkadot/util-crypto';

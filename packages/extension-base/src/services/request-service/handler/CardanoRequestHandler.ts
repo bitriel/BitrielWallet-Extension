@@ -1,11 +1,11 @@
 // Copyright 2019-2022 @bitriel/extension-base authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { FixedTransaction, TransactionWitnessSet, Vkeywitnesses } from '@emurgo/cardano-serialization-lib-nodejs';
 import { ConfirmationDefinitionsCardano, ConfirmationsQueueCardano, ConfirmationsQueueItemOptions, ConfirmationTypeCardano, RequestConfirmationCompleteCardano, ResponseCardanoSignData } from '@bitriel/extension-base/background/KoniTypes';
 import { ConfirmationRequestBase, Resolver } from '@bitriel/extension-base/background/types';
 import RequestService from '@bitriel/extension-base/services/request-service';
 import { isInternalRequest } from '@bitriel/extension-base/utils/request';
+import { FixedTransaction, TransactionWitnessSet, Vkeywitnesses } from '@emurgo/cardano-serialization-lib-nodejs';
 import { keyring } from '@subwallet/ui-keyring';
 import { t } from 'i18next';
 import { BehaviorSubject } from 'rxjs';

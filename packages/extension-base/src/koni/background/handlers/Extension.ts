@@ -1,8 +1,6 @@
 // Copyright 2019-2022 @bitriel/extension-koni authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { Common } from '@ethereumjs/common';
-import { LegacyTransaction } from '@ethereumjs/tx';
 import { _AssetRef, _AssetType, _ChainAsset, _ChainInfo, _MultiChainAsset } from '@bitriel/chain-list/types';
 import { TransactionError } from '@bitriel/extension-base/background/errors/TransactionError';
 import { withErrorLog } from '@bitriel/extension-base/background/handlers/helpers';
@@ -65,6 +63,8 @@ import { _analyzeAddress, CalculateMaxTransferable, calculateMaxTransferable, co
 import { parseContractInput, parseEvmRlp } from '@bitriel/extension-base/utils/eth/parseTransaction';
 import { getId } from '@bitriel/extension-base/utils/getId';
 import { MetadataDef } from '@bitriel/extension-inject/types';
+import { Common } from '@ethereumjs/common';
+import { LegacyTransaction } from '@ethereumjs/tx';
 import { getKeypairTypeByAddress, isAddress, isCardanoAddress, isSubstrateAddress, isTonAddress } from '@subwallet/keyring';
 import { CardanoKeypairTypes, EthereumKeypairTypes, SubstrateKeypairTypes, TonKeypairTypes } from '@subwallet/keyring/types';
 import { keyring } from '@subwallet/ui-keyring';

@@ -1,6 +1,8 @@
 // Copyright 2019-2022 @bitriel/extension-base
 // SPDX-License-Identifier: Apache-2.0
 
+import subwalletApiSdk from '@bitriel/bitriel-api-sdk';
+import { SwapQuote } from '@bitriel/bitriel-api-sdk/modules/swapApi';
 import { COMMON_CHAIN_SLUGS } from '@bitriel/chain-list';
 import { SwapError } from '@bitriel/extension-base/background/errors/SwapError';
 import { TransactionError } from '@bitriel/extension-base/background/errors/TransactionError';
@@ -15,8 +17,6 @@ import { BasicTxErrorType, DynamicSwapType, GenSwapStepFuncV2, HydrationSwapStep
 import { BaseStepDetail, CommonOptimalSwapPath, CommonStepFeeInfo, CommonStepType } from '@bitriel/extension-base/types/service-base';
 import { HydradxSwapTxData, SwapErrorType, SwapFeeType, SwapProviderId, SwapStepType, SwapSubmitParams, SwapSubmitStepData } from '@bitriel/extension-base/types/swap';
 import { _reformatAddressWithChain } from '@bitriel/extension-base/utils';
-import subwalletApiSdk from '@bitriel/bitriel-api-sdk';
-import { SwapQuote } from '@bitriel/bitriel-api-sdk/modules/swapApi';
 import BigN from 'bignumber.js';
 
 import { SubmittableExtrinsic } from '@polkadot/api/types';

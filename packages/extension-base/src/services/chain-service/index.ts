@@ -1,7 +1,6 @@
 // Copyright 2019-2022 @bitriel/extension-base authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { TransactionUnspentOutput } from '@emurgo/cardano-serialization-lib-nodejs';
 import { AssetLogoMap, AssetRefMap, ChainAssetMap, ChainInfoMap, ChainLogoMap, MultiChainAssetMap } from '@bitriel/chain-list';
 import { _AssetRef, _AssetRefPath, _AssetType, _CardanoInfo, _ChainAsset, _ChainInfo, _ChainStatus, _EvmInfo, _MultiChainAsset, _SubstrateChainType, _SubstrateInfo, _TonInfo } from '@bitriel/chain-list/types';
 import { AssetSetting, CardanoPaginate, MetadataItem, SufficientChainsDetails, TokenPriorityDetails, ValidateNetworkResponse } from '@bitriel/extension-base/background/KoniTypes';
@@ -22,6 +21,7 @@ import { IChain, IMetadataItem, IMetadataV15Item } from '@bitriel/extension-base
 import DatabaseService from '@bitriel/extension-base/services/storage-service/DatabaseService';
 import AssetSettingStore from '@bitriel/extension-base/stores/AssetSetting';
 import { addLazy, calculateMetadataHash, fetchStaticData, filterAssetsByChainAndType, getShortMetadata, MODULE_SUPPORT, reformatAddress } from '@bitriel/extension-base/utils';
+import { TransactionUnspentOutput } from '@emurgo/cardano-serialization-lib-nodejs';
 import { BehaviorSubject, Subject } from 'rxjs';
 import Web3 from 'web3';
 

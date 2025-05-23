@@ -1,7 +1,6 @@
 // Copyright 2019-2022 @bitriel/extension-base authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { formatJsonRpcError, formatJsonRpcResult } from '@json-rpc-tools/utils';
 import RequestBytesSign from '@bitriel/extension-base/background/RequestBytesSign';
 import RequestExtrinsicSign from '@bitriel/extension-base/background/RequestExtrinsicSign';
 import RequestService from '@bitriel/extension-base/services/request-service';
@@ -9,6 +8,7 @@ import WalletConnectService from '@bitriel/extension-base/services/wallet-connec
 import { getWCId, parseRequestParams } from '@bitriel/extension-base/services/wallet-connect-service/helpers';
 import { POLKADOT_SIGNING_METHODS } from '@bitriel/extension-base/services/wallet-connect-service/types';
 import { isSameAddress } from '@bitriel/extension-base/utils';
+import { formatJsonRpcError, formatJsonRpcResult } from '@json-rpc-tools/utils';
 import keyring from '@subwallet/ui-keyring';
 import { SignClientTypes } from '@walletconnect/types';
 import { getSdkError } from '@walletconnect/utils';

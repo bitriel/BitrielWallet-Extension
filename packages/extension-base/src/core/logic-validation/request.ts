@@ -1,7 +1,6 @@
 // Copyright 2019-2022 @bitriel/extension-base
 // SPDX-License-Identifier: Apache-2.0
 
-import { TypedDataV1Field, typedSignatureHash } from '@metamask/eth-sig-util';
 import { CardanoProviderError } from '@bitriel/extension-base/background/errors/CardanoProviderError';
 import { EvmProviderError } from '@bitriel/extension-base/background/errors/EvmProviderError';
 import { TransactionError } from '@bitriel/extension-base/background/errors/TransactionError';
@@ -13,6 +12,7 @@ import { BasicTxErrorType, EvmFeeInfo } from '@bitriel/extension-base/types';
 import { BN_ZERO, combineEthFee, createPromiseHandler, isSameAddress, stripUrl, wait } from '@bitriel/extension-base/utils';
 import { isContractAddress, parseContractInput } from '@bitriel/extension-base/utils/eth/parseTransaction';
 import { getId } from '@bitriel/extension-base/utils/getId';
+import { TypedDataV1Field, typedSignatureHash } from '@metamask/eth-sig-util';
 import { isCardanoAddress, isSubstrateAddress } from '@subwallet/keyring';
 import { KeyringPair } from '@subwallet/keyring/types';
 import { keyring } from '@subwallet/ui-keyring';

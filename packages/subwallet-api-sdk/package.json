@@ -1,0 +1,26 @@
+{
+  "author": "S2kael<laiducminh1002@gmail.com>",
+  "bugs": "https://github.com/bitriel/BitrielWallet-Extension/issues",
+  "contributors": [],
+  "description": "Sdk for subwallet api",
+  "homepage": "https://github.com/bitriel/BitrielWallet-Extension/tree/master/packages/subwallet-api-sdk#readme",
+  "license": "Apache-2.0",
+  "maintainers": [],
+  "name": "@subwallet/subwallet-api-sdk",
+  "repository": {
+    "directory": "packages/subwallet-api-sdk",
+    "type": "git",
+    "url": "https://github.com/bitriel/BitrielWallet-Extension.git"
+  },
+  "sideEffects": [
+    "./detectPackage.js",
+    "./detectPackage.cjs"
+  ],
+  "type": "module",
+  "version": "1.3.36-0",
+  "main": "index.js",
+  "dependencies": {
+    "@bitriel/chain-list": "1.0.0",
+    "@polkadot/util": "^13.2.3"
+  }
+}

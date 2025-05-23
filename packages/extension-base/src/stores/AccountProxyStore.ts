@@ -1,0 +1,12 @@
+// Copyright 2019-2022 @bitriel/extension-koni-ui authors & contributors
+// SPDX-License-Identifier: Apache-2.0
+
+import { EXTENSION_PREFIX } from '@bitriel/extension-base/defaults';
+import SubscribableStore from '@bitriel/extension-base/stores/SubscribableStore';
+import { AccountProxyStoreData } from '@bitriel/extension-base/types';
+
+export default class AccountProxyStore extends SubscribableStore<AccountProxyStoreData> {
+  constructor () {
+    super(EXTENSION_PREFIX ? `${EXTENSION_PREFIX}account_proxy` : null);
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "author": "Jaco Greeff <jacogr@gmail.com>",
+  "bugs": "https://github.com/bitriel/BitrielWallet-Extension/issues",
+  "contributors": [],
+  "description": "Provides an interfaces around the injected globals for ease of access by dapp developers.",
+  "homepage": "https://github.com/bitriel/BitrielWallet-Extension/tree/master/packages/extension-dapp#readme",
+  "license": "Apache-2.0",
+  "maintainers": [],
+  "name": "@bitriel/extension-dapp",
+  "repository": {
+    "directory": "packages/extension-dapp",
+    "type": "git",
+    "url": "https://github.com/bitriel/BitrielWallet-Extension.git"
+  },
+  "sideEffects": [
+    "./detectPackage.js",
+    "./detectPackage.cjs"
+  ],
+  "type": "module",
+  "version": "1.3.36-0",
+  "main": "index.js",
+  "dependencies": {
+    "@babel/runtime": "^7.20.6",
+    "@bitriel/extension-inject": "^1.3.36-0",
+    "@polkadot/util": "^13.4.3",
+    "@polkadot/util-crypto": "^13.4.3"
+  },
+  "peerDependencies": {
+    "@polkadot/api": "*",
+    "@polkadot/util": "*",
+    "@polkadot/util-crypto": "*"
+  }
+}

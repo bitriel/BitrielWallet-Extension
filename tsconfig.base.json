@@ -1,0 +1,31 @@
+{
+  "extends": "@polkadot/dev/config/tsconfig.json",
+	"compilerOptions": {
+      "composite": true,
+      "paths": {
+        "@bitriel/extension-base": ["extension-base/src"],
+        "@bitriel/extension-base/*": ["extension-base/src/*"],
+        "@bitriel/extension-chains": ["extension-chains/src"],
+        "@bitriel/extension-chains/*": ["extension-chains/src/*"],
+        "@bitriel/extension-compat-metamask": ["extension-compat-metamask/src"],
+        "@bitriel/extension-dapp": ["extension-dapp/src"],
+        "@bitriel/extension-dapp/*": ["extension-dapp/src/*"],
+        "@bitriel/extension-inject": ["extension-inject/src"],
+        "@bitriel/extension-inject/*": ["extension-inject/src/*"],
+        "@bitriel/extension-mocks/*": ["extension-mocks/src/*"],
+        "@bitriel/extension-koni": ["extension-koni/src"],
+        "@bitriel/extension-koni/*": ["extension-koni/src/*"],
+        "@bitriel/extension-koni-ui": ["extension-koni-ui/src"],
+        "@bitriel/extension-koni-ui/*": ["extension-koni-ui/src/*"],
+        "@bitriel/extension-web-ui": ["extension-web-ui/src"],
+        "@bitriel/extension-web-ui/*": ["extension-web-ui/src/*"],
+        "@subwallet/web-runner": ["web-runner/src"],
+        "@subwallet/web-runner/*": ["web-runner/src/*"],
+        "@subwallet/webapp": ["webapp/src"],
+        "@subwallet/webapp/*": ["webapp/src/*"],
+        "@subwallet/subwallet-api-sdk": ["subwallet-api-sdk/src"],
+        "@subwallet/subwallet-api-sdk/*": ["subwallet-api-sdk/src/*"]
+    },
+    "skipLibCheck": true
+	}
+ }

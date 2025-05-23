@@ -14,7 +14,7 @@
   },
   "sideEffects": true,
   "type": "module",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "dependencies": {
     "@babel/runtime": "^7.20.6",
     "@bitriel/chain-list": "1.0.0",

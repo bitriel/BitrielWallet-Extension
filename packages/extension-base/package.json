@@ -17,7 +17,7 @@
     "./detectPackage.cjs"
   ],
   "type": "module",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "index.js",
   "dependencies": {
     "@acala-network/api": "^5.0.2",
@@ -25,10 +25,10 @@
     "@azns/resolver-core": "^1.4.0",
     "@bitriel/bitriel-api-sdk": "^1.0.1",
     "@bitriel/chain-list": "1.0.0",
-    "@bitriel/extension-base": "^1.0.0",
-    "@bitriel/extension-chains": "^1.0.0",
-    "@bitriel/extension-dapp": "^1.0.0",
-    "@bitriel/extension-inject": "^1.0.0",
+    "@bitriel/extension-base": "^1.0.1",
+    "@bitriel/extension-chains": "^1.0.1",
+    "@bitriel/extension-dapp": "^1.0.1",
+    "@bitriel/extension-inject": "^1.0.1",
     "@emurgo/cardano-serialization-lib-nodejs": "^13.2.0",
     "@equilab/api": "~1.14.25",
     "@ethereumjs/common": "^4.1.0",

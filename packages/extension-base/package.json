@@ -17,13 +17,13 @@
     "./detectPackage.cjs"
   ],
   "type": "module",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "main": "index.js",
   "dependencies": {
     "@acala-network/api": "^5.0.2",
     "@apollo/client": "^3.7.14",
     "@azns/resolver-core": "^1.4.0",
-    "@bitriel/bitriel-api-sdk": "^1.0.1",
+    "@bitriel/bitriel-api-sdk": "^1.0.2",
     "@bitriel/chain-list": "1.0.0",
     "@bitriel/extension-base": "^1.0.1",
     "@bitriel/extension-chains": "^1.0.1",

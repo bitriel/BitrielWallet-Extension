@@ -1,7 +1,7 @@
 // Copyright 2019-2022 @bitriel/extension-base authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { SWApiResponse } from '@bitriel/bitriel-api-sdk/types';
+import { SWApiResponse } from '../types';
 
 export class BalanceDetectionApi {
   private baseUrl: string;

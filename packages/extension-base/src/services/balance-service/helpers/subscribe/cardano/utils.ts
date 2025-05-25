@@ -1,9 +1,9 @@
 // Copyright 2019-2022 @bitriel/extension-base
 // SPDX-License-Identifier: Apache-2.0
 
+import { Transaction } from '@emurgo/cardano-serialization-lib-nodejs';
 import { _ChainAsset } from '@bitriel/chain-list/types';
 import { CardanoTxOutput } from '@bitriel/extension-base/services/balance-service/helpers/subscribe/cardano/types';
-import { Transaction } from '@emurgo/cardano-serialization-lib-nodejs';
 
 export function getCardanoAssetId (chainAsset: _ChainAsset): string {
   return chainAsset.metadata?.cardanoId as string;

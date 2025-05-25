@@ -3,9 +3,9 @@
 
 import type { EvmProvider } from '@bitriel/extension-inject/types';
 
+import SafeEventEmitter from '@metamask/safe-event-emitter';
 import { EvmProviderError } from '@bitriel/extension-base/background/errors/EvmProviderError';
 import { SendRequest } from '@bitriel/extension-base/page/types';
-import SafeEventEmitter from '@metamask/safe-event-emitter';
 import { JsonRpcRequest, JsonRpcResponse, JsonRpcSuccess } from 'json-rpc-engine';
 import { RequestArguments } from 'web3-core';
 

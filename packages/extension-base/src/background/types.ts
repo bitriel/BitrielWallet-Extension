@@ -10,7 +10,7 @@ import type { JsonRpcResponse } from '@polkadot/rpc-provider/types';
 import type { SignerPayloadJSON, SignerPayloadRaw } from '@polkadot/types/types';
 import type { HexString } from '@polkadot/util/types';
 
-import { KoniRequestSignatures, NetworkJson } from '@bitriel/extension-base/background/KoniTypes';
+import { KoniRequestSignatures, NetworkJson, RequestSwitchCurrentNetworkAuthorization } from '@bitriel/extension-base/background/KoniTypes';
 import { AuthUrls } from '@bitriel/extension-base/services/request-service/types';
 import { AccountJson } from '@bitriel/extension-base/types';
 
@@ -91,6 +91,7 @@ export interface RequestSignatures extends KoniRequestSignatures {
   'pri(authorize.reject)': [RequestAuthorizeReject, boolean];
   'pri(authorize.requests)': [RequestAuthorizeSubscribe, boolean, AuthorizeRequest[]];
   'pri(authorize.toggle)': [string, ResponseAuthorizeList];
+  'pri(authorize.switchCurrentNetwork)': [RequestSwitchCurrentNetworkAuthorization, ResponseAuthorizeList]
   'pri(derivation.create)': [RequestDeriveCreate, boolean];
   'pri(derivation.validate)': [RequestDeriveValidate, ResponseDeriveValidate];
   'pri(json.batchRestore)': [RequestBatchRestore, void];

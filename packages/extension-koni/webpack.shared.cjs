@@ -61,7 +61,7 @@ const _additionalEnv = {
   SIMPLE_SWAP_API_KEY: JSON.stringify(process.env.SIMPLE_SWAP_API_KEY),
   UNISWAP_API_KEY: JSON.stringify(process.env.UNISWAP_API_KEY),
   KYBER_CLIENT_ID: JSON.stringify(process.env.KYBER_CLIENT_ID),
-  SUBWALLET_API: JSON.stringify(process.env.SUBWALLET_API),
+  BITRIEL_API: JSON.stringify(process.env.BITRIEL_API),
   BLOCKFROST_API_KEY_MAIN: JSON.stringify(process.env.BLOCKFROST_API_KEY_MAIN),
   BLOCKFROST_API_KEY_PREP: JSON.stringify(process.env.BLOCKFROST_API_KEY_PREP),
   MELD_API_KEY: JSON.stringify(process.env.MELD_API_KEY),
@@ -186,9 +186,6 @@ module.exports = (entry, alias = {}, isFirefox = false) => {
         [`@bitriel/${p}`]: path.resolve(__dirname, `../${p}/src`)
       }), {
         ...alias,
-        '@bitriel/extension-inject/crossenv': path.resolve(__dirname, '../extension-inject/src/crossenv'),
-        '@bitriel/extension-koni-ui': path.resolve(__dirname, '../extension-koni-ui/src'),
-        '@bitriel/extension-base': path.resolve(__dirname, '../extension-base/src'),
         'react/jsx-runtime': require.resolve('react/jsx-runtime'),
         axios_raw: path.resolve(__dirname, '../../node_modules/axios'),
         axios: path.resolve(__dirname, 'axios.global.js')

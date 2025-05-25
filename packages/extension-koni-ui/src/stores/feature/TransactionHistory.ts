@@ -1,9 +1,9 @@
 // Copyright 2019-2022 @polkadot/extension-ui authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { TransactionHistoryItem } from '@bitriel/extension-base/background/KoniTypes';
 import { TransactionHistoryReducerType } from '@bitriel/extension-koni-ui/stores/types';
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 const initialState = { historyList: [] } as TransactionHistoryReducerType;
 

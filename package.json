@@ -1,5 +1,5 @@
 {
-  "author": "Bitriel",
+  "author": "Koni Studio",
   "bugs": "https://github.com/bitriel/BitrielWallet-Extension/issues",
   "homepage": "https://github.com/bitriel/BitrielWallet-Extension#readme",
   "license": "Apache-2.0",
@@ -10,7 +10,7 @@
     "url": "https://github.com/bitriel/BitrielWallet-Extension.git"
   },
   "sideEffects": false,
-  "version": "1.0.2",
+  "version": "1.0.4",
   "workspaces": [
     "packages/*"
   ],
@@ -21,9 +21,7 @@
     "koni-ci-ghact-build": "./scripts/koni-ci-ghact-build.mjs",
     "koni-ci-mv3-firefox": "./scripts/koni-ci-mv3-firefox.mjs",
     "koni-ci-webapp-update-build-number": "./scripts/koni-ci-webapp-update-build-number.mjs",
-    "koni-deploy-all": "./scripts/koni-deploy-all.mjs",
-    "koni-dev-build-ts": "./scripts/koni-dev-build-ts.mjs",
-    "koni-quick-deploy": "./scripts/koni-quick-deploy.mjs"
+    "koni-dev-build-ts": "./scripts/koni-dev-build-ts.mjs"
   },
   "scripts": {
     "build": "koni-dev-build-ts && yarn build:zip && yarn build:rollup",
@@ -39,8 +37,6 @@
     "build:zip:dst-ff": "rm -rf ./master-build-firefox.zip && cd packages/extension-koni/build-firefox && zip -r -FS ../../../master-build-firefox.zip .",
     "build:zip:src": "rm -rf ./master-src.zip && zip -r -x '*build/*' -x '*build-firefox/*' -x '*node_modules*' -FS ./master-src.zip packages .editorconfig .eslintignore .eslintrc.js babel.config.cjs CHANGELOG.md CONTRIBUTING.md i18next-scanner.config.js jest.config.cjs LICENSE package.json README.md tsconfig.json yarn.lock",
     "clean": "polkadot-dev-clean-build && rm -rf packages/extension-koni/build-firefox",
-    "deploy": "koni-deploy-all",
-    "deploy:quick": "koni-quick-deploy",
     "dev": "yarn watch-dev",
     "dev:firefox": "cd packages/extension-koni && yarn polkadot-exec-webpack --config webpack.config-firefox.cjs --mode development --watch -d inline-source-map",
     "lint": "polkadot-dev-run-lint",
@@ -111,9 +107,9 @@
     "@polkadot/util": "^13.4.3",
     "@polkadot/util-crypto": "^13.4.3",
     "@polkadot/x-global": "^13.4.3",
-    "@subwallet/keyring": "^0.1.11",
+    "@subwallet/keyring": "^0.1.12",
     "@subwallet/react-ui": "5.1.2-b79",
-    "@subwallet/ui-keyring": "^0.1.11",
+    "@subwallet/ui-keyring": "^0.1.12",
     "@types/bn.js": "^5.1.6",
     "@zondax/ledger-substrate": "1.0.1",
     "babel-core": "^7.0.0-bridge.0",

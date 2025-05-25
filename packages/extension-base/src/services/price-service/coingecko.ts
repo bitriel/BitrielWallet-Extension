@@ -1,10 +1,10 @@
 // Copyright 2019-2022 @bitriel/extension-koni authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { subwalletApiSdk } from '@bitriel/bitriel-api-sdk';
 import { CurrencyJson, CurrencyType, ExchangeRateJSON, HistoryTokenPriceJSON, PriceChartTimeframe, PriceJson } from '@bitriel/extension-base/background/KoniTypes';
 import { isProductionMode } from '@bitriel/extension-base/constants';
 import { staticData, StaticKey } from '@bitriel/extension-base/utils/staticData';
+import { subwalletApiSdk } from '@bitriel/bitriel-api-sdk';
 
 import { isArray } from '@polkadot/util';
 

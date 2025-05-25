@@ -1,10 +1,10 @@
 // Copyright 2019-2022 @polkadot/extension-ui authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
+import { createSlice, PayloadAction } from '@reduxjs/toolkit/dist';
 import { AppBannerData, AppConfirmationData, AppPopupData } from '@bitriel/extension-base/services/mkt-campaign-service/types';
 import { AppOnlineContent, ReduxStatus } from '@bitriel/extension-koni-ui/stores/types';
 import { MktCampaignHistoryData } from '@bitriel/extension-koni-ui/types/staticContent';
-import { createSlice, PayloadAction } from '@reduxjs/toolkit/dist';
 
 const initialState = {
   appPopupData: [],

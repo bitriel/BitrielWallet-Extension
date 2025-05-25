@@ -1,8 +1,8 @@
 // Copyright 2019-2022 @bitriel/extension-base
 // SPDX-License-Identifier: Apache-2.0
 
-import { NestedArray } from '@bitriel/extension-base/background/KoniTypes';
 import { FunctionFragment, JsonFragment, Result } from '@ethersproject/abi';
+import { NestedArray } from '@bitriel/extension-base/background/KoniTypes';
 import { Buffer } from 'buffer';
 import { ethers } from 'ethers';
 import isBuffer from 'is-buffer';

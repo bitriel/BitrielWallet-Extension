@@ -1,9 +1,9 @@
 // Copyright 2019-2022 @polkadot/extension-ui authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { BondingStore, ChainNominationPoolParams, ChainValidatorParams, ReduxStatus } from '@bitriel/extension-koni-ui/stores/types';
 import { PayloadAction } from '@reduxjs/toolkit';
 import { createSlice } from '@reduxjs/toolkit/dist';
+import { BondingStore, ChainNominationPoolParams, ChainValidatorParams, ReduxStatus } from '@bitriel/extension-koni-ui/stores/types';
 
 const initialState = {
   validatorInfoMap: {},

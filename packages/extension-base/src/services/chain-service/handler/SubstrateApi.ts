@@ -4,14 +4,14 @@
 import '@polkadot/types-augment';
 
 import { options as acalaOptions } from '@acala-network/api';
+import { GearApi } from '@gear-js/api';
+import { rpc as oakRpc, types as oakTypes } from '@oak-foundation/types';
 import { MetadataItem } from '@bitriel/extension-base/background/KoniTypes';
 import { _API_OPTIONS_CHAIN_GROUP, API_AUTO_CONNECT_MS, API_CONNECT_TIMEOUT } from '@bitriel/extension-base/services/chain-service/constants';
 import { getSubstrateConnectProvider } from '@bitriel/extension-base/services/chain-service/handler/light-client';
 import { _ApiOptions } from '@bitriel/extension-base/services/chain-service/handler/types';
 import { _ChainConnectionStatus, _SubstrateAdapterQueryArgs, _SubstrateAdapterSubscriptionArgs, _SubstrateApi } from '@bitriel/extension-base/services/chain-service/types';
 import { createPromiseHandler, PromiseHandler } from '@bitriel/extension-base/utils/promise';
-import { GearApi } from '@gear-js/api';
-import { rpc as oakRpc, types as oakTypes } from '@oak-foundation/types';
 import { goldbergRpc, goldbergTypes, spec as availSpec } from 'avail-js-sdk';
 import { BehaviorSubject, combineLatest, map, Observable, Subscription } from 'rxjs';
 

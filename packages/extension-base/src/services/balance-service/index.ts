@@ -1,7 +1,6 @@
 // Copyright 2019-2022 @bitriel/extension-base authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import subwalletApiSdk from '@bitriel/bitriel-api-sdk';
 import { BalanceError } from '@bitriel/extension-base/background/errors/BalanceError';
 import { AmountData, APIItemState, BalanceErrorType, DetectBalanceCache, ExtrinsicType } from '@bitriel/extension-base/background/KoniTypes';
 import { ALL_ACCOUNT_KEY } from '@bitriel/extension-base/constants';
@@ -16,6 +15,7 @@ import { BalanceItem, BalanceJson, CommonOptimalTransferPath } from '@bitriel/ex
 import { addLazy, createPromiseHandler, isAccountAll, PromiseHandler, waitTimeout } from '@bitriel/extension-base/utils';
 import { getKeypairTypeByAddress } from '@subwallet/keyring';
 import { EthereumKeypairTypes, SubstrateKeypairTypes } from '@subwallet/keyring/types';
+import subwalletApiSdk from '@bitriel/bitriel-api-sdk';
 import keyring from '@subwallet/ui-keyring';
 import BigN from 'bignumber.js';
 import { t } from 'i18next';

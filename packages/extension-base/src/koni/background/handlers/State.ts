@@ -1,7 +1,7 @@
 // Copyright 2019-2022 @bitriel/extension-koni authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import subwalletApiSdk from '@bitriel/bitriel-api-sdk';
+import * as CardanoWasm from '@emurgo/cardano-serialization-lib-nodejs';
 import { _AssetRef, _AssetType, _ChainAsset, _ChainInfo, _MultiChainAsset } from '@bitriel/chain-list/types';
 import { CardanoProviderError } from '@bitriel/extension-base/background/errors/CardanoProviderError';
 import { EvmProviderError } from '@bitriel/extension-base/background/errors/EvmProviderError';
@@ -11,7 +11,7 @@ import { isSubscriptionRunning, unsubscribe } from '@bitriel/extension-base/back
 import { AddressCardanoTransactionBalance, AddTokenRequestExternal, AmountData, APIItemState, ApiMap, AuthRequestV2, CardanoKeyType, CardanoProviderErrorType, CardanoSignatureRequest, CardanoTransactionDappConfig, ChainStakingMetadata, ChainType, ConfirmationsQueue, ConfirmationsQueueCardano, ConfirmationsQueueTon, ConfirmationType, CrowdloanItem, CrowdloanJson, CurrencyType, EvmProviderErrorType, EvmSendTransactionParams, EvmSendTransactionRequest, EvmSignatureRequest, ExternalRequestPromise, ExternalRequestPromiseStatus, ExtrinsicType, MantaAuthorizationContext, MantaPayConfig, MantaPaySyncState, NftCollection, NftItem, NftJson, NominatorMetadata, RequestAccountExportPrivateKey, RequestCardanoSignData, RequestCardanoSignTransaction, RequestConfirmationComplete, RequestConfirmationCompleteCardano, RequestConfirmationCompleteTon, RequestCrowdloanContributions, RequestSettingsType, ResponseAccountExportPrivateKey, ResponseCardanoSignData, ResponseCardanoSignTransaction, ServiceInfo, SingleModeJson, StakingItem, StakingJson, StakingRewardItem, StakingRewardJson, StakingType, UiSettings } from '@bitriel/extension-base/background/KoniTypes';
 import { RequestAuthorizeTab, RequestRpcSend, RequestRpcSubscribe, RequestRpcUnsubscribe, RequestSign, ResponseRpcListProviders, ResponseSigning } from '@bitriel/extension-base/background/types';
 import { BACKEND_API_URL, BACKEND_PRICE_HISTORY_URL, EnvConfig, MANTA_PAY_BALANCE_INTERVAL, REMIND_EXPORT_ACCOUNT } from '@bitriel/extension-base/constants';
-import { convertErrorFormat, generateValidationProcess, PayloadValidated, ValidateStepFunction, validationAuthMiddleware, validationAuthWCMiddleware, validationCardanoSignDataMiddleware, validationConnectMiddleware, validationEvmDataTransactionMiddleware, validationEvmSignMessageMiddleware } from '@bitriel/extension-base/core/logic-validation';
+import { convertErrorFormat, generateValidationProcess, PayloadValidated, ValidateStepFunction, validationAuthCardanoMiddleware, validationAuthMiddleware, validationAuthWCMiddleware, validationCardanoSignDataMiddleware, validationConnectMiddleware, validationEvmDataTransactionMiddleware, validationEvmSignMessageMiddleware } from '@bitriel/extension-base/core/logic-validation';
 import { BalanceService } from '@bitriel/extension-base/services/balance-service';
 import { ServiceStatus } from '@bitriel/extension-base/services/base/types';
 import BuyService from '@bitriel/extension-base/services/buy-service';
@@ -47,10 +47,10 @@ import WalletConnectService from '@bitriel/extension-base/services/wallet-connec
 import { SWStorage } from '@bitriel/extension-base/storage';
 import { BalanceItem, BasicTxErrorType, CurrentAccountInfo, EvmFeeInfo, RequestCheckPublicAndSecretKey, ResponseCheckPublicAndSecretKey, StorageDataInterface } from '@bitriel/extension-base/types';
 import { addLazy, isManifestV3, isSameAddress, reformatAddress, stripUrl, targetIsWeb } from '@bitriel/extension-base/utils';
-import { convertCardanoHexToBech32 } from '@bitriel/extension-base/utils/cardano';
+import { convertCardanoHexToBech32, validateAddressNetwork } from '@bitriel/extension-base/utils/cardano';
 import { createPromiseHandler } from '@bitriel/extension-base/utils/promise';
 import { MetadataDef, ProviderMeta } from '@bitriel/extension-inject/types';
-import * as CardanoWasm from '@emurgo/cardano-serialization-lib-nodejs';
+import subwalletApiSdk from '@bitriel/bitriel-api-sdk';
 import { keyring } from '@subwallet/ui-keyring';
 import BN from 'bn.js';
 import { t } from 'i18next';
@@ -1312,19 +1312,16 @@ export default class KoniState {
 
     const validationSteps: ValidateStepFunction[] =
       [
-        validationAuthMiddleware,
+        validationAuthCardanoMiddleware,
         validationCardanoSignDataMiddleware
       ];
 
     const result = await generateValidationProcess(this, url, payloadValidation, validationSteps);
 
-    if (!isSameAddress(address, currentAddress)) {
-      throw new CardanoProviderError(CardanoProviderErrorType.ACCOUNT_CHANGED);
-    }
-
     const errorsFormated = convertErrorFormat(result.errors);
     const payloadAfterValidated: CardanoSignatureRequest = {
       ...result.payloadAfterValidated as CardanoSignatureRequest,
+      currentAddress,
       errors: errorsFormated,
       id
     };
@@ -1367,14 +1364,14 @@ export default class KoniState {
       autoActiveChain = true;
     }
 
-    const currentEvmNetwork = this.requestService.getDAppChainInfo({
+    const currentCardanoNetwork = this.requestService.getDAppChainInfo({
       autoActive: autoActiveChain,
       accessType: 'cardano',
       defaultChain: networkKey,
       url
     });
 
-    networkKey = currentEvmNetwork?.slug || 'cardano';
+    networkKey = currentCardanoNetwork?.slug || 'cardano';
     const allUtxos = await this.chainService.getUtxosByAddress(currentAddress, networkKey);
 
     const outputTransactionUnSpend = CardanoWasm.TransactionOutputs.new();
@@ -1417,19 +1414,30 @@ export default class KoniState {
       addressOutputAmountMap[address] = { values: convertValueToAsset(output) };
 
       if (isSameAddress(currentAddress, address)) {
+        if (!validateAddressNetwork(address, currentCardanoNetwork)) {
+          throw new CardanoProviderError(CardanoProviderErrorType.ACCOUNT_CHANGED, t('Current network is changed'));
+        }
+
         transactionValue = transactionValue.checked_add(amount);
         addressInputAmountMap[address].isOwner = true;
         addressOutputAmountMap[address].isOwner = true;
       }
+
+      // Check if address is valid with current network
+      if (!validateAddressNetwork(address, currentCardanoNetwork)) {
+        throw new CardanoProviderError(CardanoProviderErrorType.INVALID_REQUEST, t('Current network is not match with input address'));
+      }
     }
 
     for (const address in addressOutputMap) {
+      if (!validateAddressNetwork(address, currentCardanoNetwork)) {
+        throw new CardanoProviderError(CardanoProviderErrorType.INVALID_REQUEST, t('Current network is not match with output address'));
+      }
+
       if (!addressInputAmountMap[address] && !addressOutputMap[address].is_zero()) {
         addressOutputAmountMap[address] = { values: convertValueToAsset(addressOutputMap[address]), isRecipient: true };
       }
     }
-
-    transactionValue = transactionValue.checked_sub(CardanoWasm.Value.new(tx.body().fee()));
 
     const transactionBody = tx.body();
     const getSpecificUtxo = this.chainService.getSpecificUtxo.bind(this);
@@ -1447,10 +1455,8 @@ export default class KoniState {
     const pair = keyring.getPair(currentAddress);
 
     if (pair) {
-      const publicKey = CardanoWasm.Bip32PublicKey.from_bytes(pair.publicKey);
-
-      const paymentPubKey = publicKey.derive(0).derive(0).to_raw_key().hash().to_hex();
-      const stakePubKey = publicKey.derive(2).derive(0).to_raw_key().hash().to_hex();
+      const paymentPubKey = CardanoWasm.Bip32PublicKey.from_hex(pair.cardano.paymentPubKey).to_raw_key().hash().to_hex();
+      const stakePubKey = CardanoWasm.Bip32PublicKey.from_hex(pair.cardano.stakePubKey).to_raw_key().hash().to_hex();
 
       keyHashAddressMap[paymentPubKey] = 'payment';
       keyHashAddressMap[stakePubKey] = 'stake';
@@ -1558,14 +1564,7 @@ export default class KoniState {
     const migrationStatus = await SWStorage.instance.getItem('mv3_migration');
 
     if (!migrationStatus || migrationStatus !== 'done') {
-      if (isManifestV3) {
-        // Open migration tab
-        const url = `${chrome.runtime.getURL('index.html')}#/mv3-migration`;
-
-        await openPopup(url);
-
-        // migrateMV3LocalStorage will be called when user open migration tab with data from localStorage on frontend
-      } else {
+      if (!isManifestV3) {
         this.migrateMV3LocalStorage(JSON.stringify(self.localStorage)).catch(console.error);
       }
     }

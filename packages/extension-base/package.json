@@ -23,12 +23,12 @@
     "@acala-network/api": "^5.0.2",
     "@apollo/client": "^3.7.14",
     "@azns/resolver-core": "^1.4.0",
-    "@bitriel/bitriel-api-sdk": "^1.1.0",
+    "@bitriel/bitriel-api-sdk": "^1.0.4",
     "@bitriel/chain-list": "1.0.0",
-    "@bitriel/extension-base": "^1.1.0",
-    "@bitriel/extension-chains": "^1.1.0",
-    "@bitriel/extension-dapp": "^1.1.0",
-    "@bitriel/extension-inject": "^1.1.0",
+    "@bitriel/extension-base": "^1.0.4",
+    "@bitriel/extension-chains": "^1.0.4",
+    "@bitriel/extension-dapp": "^1.0.4",
+    "@bitriel/extension-inject": "^1.0.4",
     "@emurgo/cardano-serialization-lib-nodejs": "^13.2.0",
     "@equilab/api": "~1.14.25",
     "@ethereumjs/common": "^4.1.0",
@@ -40,7 +40,7 @@
     "@metamask/safe-event-emitter": "^2.0.0",
     "@metaverse-network-sdk/type-definitions": "^0.0.1-13",
     "@oak-foundation/types": "^0.0.23",
-    "@polkadot-api/merkleize-metadata": "^1.1.0",
+    "@polkadot-api/merkleize-metadata": "^1.0.4",
     "@polkadot/api": "^15.7.2",
     "@polkadot/api-base": "^15.7.2",
     "@polkadot/api-contract": "^15.7.2",
@@ -88,7 +88,7 @@
     "is-buffer": "^2.0.5",
     "joi": "^17.13.3",
     "json-rpc-engine": "^6.1.0",
-    "manta-extension-sdk": "^1.1.0",
+    "manta-extension-sdk": "^1.0.4",
     "moment": "^2.29.4",
     "protobufjs": "^7.2.4",
     "rxjs": "^7.8.1",
@@ -105,7 +105,7 @@
     "web3-utils": "^1.10.0"
   },
   "devDependencies": {
-    "@bitriel/extension-mocks": "^1.1.0",
+    "@bitriel/extension-mocks": "^1.0.4",
     "@types/uuid": "^9.0.1"
   }
 }

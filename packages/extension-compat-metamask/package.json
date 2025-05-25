@@ -21,7 +21,7 @@
   "main": "index.js",
   "dependencies": {
     "@babel/runtime": "^7.20.6",
-    "@bitriel/extension-inject": "^1.1.0",
+    "@bitriel/extension-inject": "^1.0.4",
     "@metamask/detect-provider": "^1.2.0",
     "@polkadot/types": "^15.7.2",
     "@polkadot/util": "^13.4.3",

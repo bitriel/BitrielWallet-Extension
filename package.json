@@ -10,7 +10,7 @@
     "url": "https://github.com/bitriel/BitrielWallet-Extension.git"
   },
   "sideEffects": false,
-  "version": "1.0.2",
+  "version": "1.0.3",
   "workspaces": [
     "packages/*"
   ],

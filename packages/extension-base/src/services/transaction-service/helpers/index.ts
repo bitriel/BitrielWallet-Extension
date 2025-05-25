@@ -3,7 +3,6 @@
 
 import { _ChainInfo } from '@bitriel/chain-list/types';
 import { ExtrinsicType } from '@bitriel/extension-base/background/KoniTypes';
-import { CardanoTransactionConfig } from '@bitriel/extension-base/services/balance-service/transfer/cardano-transfer';
 import { TonTransactionConfig } from '@bitriel/extension-base/services/balance-service/transfer/ton-transfer';
 import { SWTransactionBase } from '@bitriel/extension-base/services/transaction-service/types';
 
@@ -30,11 +29,7 @@ export const isTonTransaction = (tx: SWTransactionBase['transaction']): tx is To
   return Boolean(tonTransactionConfig.messagePayload) && tonTransactionConfig.seqno >= 0;
 };
 
-export const isCardanoTransaction = (tx: SWTransactionBase['transaction']): tx is CardanoTransactionConfig => {
-  const cardanoTransactionConfig = tx as CardanoTransactionConfig;
 
-  return cardanoTransactionConfig.cardanoPayload !== null && cardanoTransactionConfig.cardanoPayload !== undefined;
-};
 
 const typeName = (type: SWTransactionBase['extrinsicType']) => {
   switch (type) {

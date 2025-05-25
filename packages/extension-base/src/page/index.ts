@@ -5,10 +5,10 @@ import type { AccountAuthType, MessageTypes, MessageTypesWithNoSubscriptions, Me
 
 import { ProviderError } from '@bitriel/extension-base/background/errors/ProviderError';
 import { ProviderErrorType } from '@bitriel/extension-base/background/KoniTypes';
-import SubWalletCardanoProvider from '@bitriel/extension-base/page/cardano';
+
 import SubWalletEvmProvider from '@bitriel/extension-base/page/evm';
 import Injected from '@bitriel/extension-base/page/substrate';
-import { AuthRequestOption, CardanoProvider, EvmProvider } from '@bitriel/extension-inject/types';
+import { AuthRequestOption, EvmProvider } from '@bitriel/extension-inject/types';
 
 import { MESSAGE_ORIGIN_PAGE } from '../defaults';
 import { getId } from '../utils/getId';
@@ -91,6 +91,4 @@ export function initEvmProvider (version: string): EvmProvider {
   return new SubWalletEvmProvider(sendMessage, version);
 }
 
-export function initCardanoProvider (): CardanoProvider {
-  return new SubWalletCardanoProvider(sendMessage);
-}
+

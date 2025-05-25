@@ -5,8 +5,8 @@ import type { RequestSignatures, TransportRequestMessage } from '@bitriel/extens
 import type { Message } from '@bitriel/extension-base/types';
 
 import { MESSAGE_ORIGIN_CONTENT } from '@bitriel/extension-base/defaults';
-import { enable, handleResponse, initCardanoProvider, initEvmProvider } from '@bitriel/extension-base/page';
-import { injectCardanoExtension, injectEvmExtension, injectExtension } from '@bitriel/extension-inject';
+import { enable, handleResponse, initEvmProvider } from '@bitriel/extension-base/page';
+import { injectEvmExtension, injectExtension } from '@bitriel/extension-inject';
 
 const version = process.env.PKG_VERSION as string;
 
@@ -17,7 +17,7 @@ function inject () {
   });
   injectEvmExtension(initEvmProvider(version));
 
-  injectCardanoExtension(initCardanoProvider());
+
 }
 
 // setup a response listener (events created by the loader for extension responses)

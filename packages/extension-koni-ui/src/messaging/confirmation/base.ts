@@ -1,7 +1,7 @@
 // Copyright 2019-2022 @bitriel/extension-koni-ui authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { ConfirmationDefinitions, ConfirmationDefinitionsCardano, ConfirmationDefinitionsTon, ConfirmationType, ConfirmationTypeCardano, ConfirmationTypeTon, RequestSigningApprovePasswordV2 } from '@bitriel/extension-base/background/KoniTypes';
+import { ConfirmationDefinitions, ConfirmationDefinitionsTon, ConfirmationType, ConfirmationTypeTon, RequestSigningApprovePasswordV2 } from '@bitriel/extension-base/background/KoniTypes';
 import { ResponseSigningIsLocked } from '@bitriel/extension-base/background/types';
 
 import { HexString } from '@polkadot/util/types';
@@ -36,6 +36,4 @@ export async function completeConfirmationTon<CT extends ConfirmationTypeTon> (t
   return sendMessage('pri(confirmationsTon.complete)', { [type]: payload });
 }
 
-export async function completeConfirmationCardano<CT extends ConfirmationTypeCardano> (type: CT, payload: ConfirmationDefinitionsCardano[CT][1]): Promise<boolean> {
-  return sendMessage('pri(confirmationsCardano.complete)', { [type]: payload });
-}
+

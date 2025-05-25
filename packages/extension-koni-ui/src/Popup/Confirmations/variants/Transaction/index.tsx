@@ -1,7 +1,7 @@
 // Copyright 2019-2022 @bitriel/extension-koni-ui authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { ConfirmationDefinitions, ConfirmationDefinitionsCardano, ConfirmationDefinitionsTon, ExtrinsicType } from '@bitriel/extension-base/background/KoniTypes';
+import { ConfirmationDefinitions, ConfirmationDefinitionsTon, ExtrinsicType } from '@bitriel/extension-base/background/KoniTypes';
 import { SigningRequest } from '@bitriel/extension-base/background/types';
 import { SWTransactionResult } from '@bitriel/extension-base/services/transaction-service/types';
 import { ProcessType, SwapBaseTxData } from '@bitriel/extension-base/types';
@@ -9,7 +9,7 @@ import { SwapTxData } from '@bitriel/extension-base/types/swap';
 import { AlertBox, AlertBoxInstant } from '@bitriel/extension-koni-ui/components';
 import { useIsPolkadotUnifiedChain, useTranslation } from '@bitriel/extension-koni-ui/hooks';
 import { SubmitApiArea } from '@bitriel/extension-koni-ui/Popup/Confirmations/parts';
-import CardanoSignArea from '@bitriel/extension-koni-ui/Popup/Confirmations/parts/Sign/Cardano';
+
 import TonSignArea from '@bitriel/extension-koni-ui/Popup/Confirmations/parts/Sign/Ton';
 import { RootState } from '@bitriel/extension-koni-ui/stores';
 import { ConfirmationQueueItem } from '@bitriel/extension-koni-ui/stores/base/RequestState';
@@ -233,17 +233,7 @@ const Component: React.FC<Props> = (props: Props) => {
           />
         )
       }
-      {
-        (type === 'cardanoSendTransactionRequest' || type === 'cardanoWatchTransactionRequest') && (
-          <CardanoSignArea
-            extrinsicType={transaction.extrinsicType}
-            id={item.id}
-            payload={(item as ConfirmationDefinitionsCardano['cardanoSendTransactionRequest' | 'cardanoWatchTransactionRequest'][0])}
-            txExpirationTime={txExpirationTime}
-            type={type}
-          />
-        )
-      }
+
     </>
   );
 };

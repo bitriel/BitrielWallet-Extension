@@ -1,7 +1,7 @@
 // Copyright 2019-2022 @polkadot/extension-ui authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { ConfirmationsQueue, ConfirmationsQueueCardano, ConfirmationsQueueTon } from '@bitriel/extension-base/background/KoniTypes';
+import { ConfirmationsQueue, ConfirmationsQueueTon } from '@bitriel/extension-base/background/KoniTypes';
 import { AuthorizeRequest, ConfirmationRequestBase, MetadataRequest, SigningRequest } from '@bitriel/extension-base/background/types';
 import { SWTransactionResult } from '@bitriel/extension-base/services/transaction-service/types';
 import { WalletConnectNotSupportRequest, WalletConnectSessionRequest } from '@bitriel/extension-base/services/wallet-connect-service/types';
@@ -32,10 +32,7 @@ const initialState: RequestState = {
   tonSendTransactionRequest: {},
   tonWatchTransactionRequest: {},
 
-  cardanoSignatureRequest: {},
-  cardanoSendTransactionRequest: {},
-  cardanoWatchTransactionRequest: {},
-  cardanoSignTransactionRequest: {},
+
 
   aliveProcess: {},
 
@@ -60,9 +57,7 @@ export const CONFIRMATIONS_FIELDS: Array<keyof RequestState> = [
   'tonSignatureRequest',
   'tonSendTransactionRequest',
   'tonWatchTransactionRequest',
-  'cardanoSignatureRequest',
-  'cardanoSendTransactionRequest',
-  'cardanoSignTransactionRequest',
+
   'tonWatchTransactionRequest',
   'connectWCRequest',
   'notSupportWCRequest'
@@ -81,7 +76,7 @@ const readyMap = {
   updateSigningRequests: false,
   updateConfirmationRequests: false,
   updateConfirmationRequestsTon: false,
-  updateConfirmationRequestCardano: false,
+
   updateConnectWalletConnect: false,
   updateNotSupportWalletConnect: false
 };
@@ -148,11 +143,7 @@ const requestStateSlice = createSlice({
       readyMap.updateConfirmationRequestsTon = true;
       computeStateSummary(state as RequestState);
     },
-    updateConfirmationRequestsCardano (state, action: PayloadAction<Partial<ConfirmationsQueueCardano>>) {
-      Object.assign(state, action.payload);
-      readyMap.updateConfirmationRequestCardano = true;
-      computeStateSummary(state as RequestState);
-    },
+
     updateWCNotSupportRequests (state, { payload }: PayloadAction<Record<string, WalletConnectNotSupportRequest>>) {
       state.notSupportWCRequest = payload;
       readyMap.updateNotSupportWalletConnect = true;

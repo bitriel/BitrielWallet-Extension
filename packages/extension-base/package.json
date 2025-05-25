@@ -17,7 +17,7 @@
     "./detectPackage.cjs"
   ],
   "type": "module",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "main": "index.js",
   "dependencies": {
     "@acala-network/api": "^5.0.2",
@@ -29,7 +29,6 @@
     "@bitriel/extension-chains": "^1.0.1",
     "@bitriel/extension-dapp": "^1.0.1",
     "@bitriel/extension-inject": "^1.0.1",
-    "@emurgo/cardano-serialization-lib-nodejs": "^13.2.0",
     "@equilab/api": "~1.14.25",
     "@ethereumjs/common": "^4.1.0",
     "@ethereumjs/tx": "^5.1.0",

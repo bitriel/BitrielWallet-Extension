@@ -1,11 +1,13 @@
 // Copyright 2019-2022 @bitriel/extension-koni authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
+import { Common } from '@ethereumjs/common';
+import { LegacyTransaction } from '@ethereumjs/tx';
 import { _AssetRef, _AssetType, _ChainAsset, _ChainInfo, _MultiChainAsset } from '@bitriel/chain-list/types';
 import { TransactionError } from '@bitriel/extension-base/background/errors/TransactionError';
 import { withErrorLog } from '@bitriel/extension-base/background/handlers/helpers';
 import { createSubscription } from '@bitriel/extension-base/background/handlers/subscriptions';
-import { AccountExternalError, AddressBookInfo, AmountData, AmountDataWithId, AssetSetting, AssetSettingUpdateReq, BondingOptionParams, BrowserConfirmationType, CampaignBanner, CampaignData, CampaignDataType, ChainType, CronReloadRequest, CrowdloanJson, ExternalRequestPromiseStatus, ExtrinsicType, HistoryTokenPriceJSON, KeyringState, MantaPayEnableMessage, MantaPayEnableParams, MantaPayEnableResponse, MantaPaySyncState, NftCollection, NftJson, NftTransactionRequest, NftTransactionResponse, PriceJson, RequestAccountCreateExternalV2, RequestAccountCreateHardwareMultiple, RequestAccountCreateHardwareV2, RequestAccountCreateWithSecretKey, RequestAccountExportPrivateKey, RequestAddInjectedAccounts, RequestApproveConnectWalletSession, RequestApproveWalletConnectNotSupport, RequestAuthorization, RequestAuthorizationBlock, RequestAuthorizationPerAccount, RequestAuthorizationPerSite, RequestAuthorizeApproveV2, RequestBondingSubmit, RequestCameraSettings, RequestCampaignBannerComplete, RequestChangeEnableChainPatrol, RequestChangeLanguage, RequestChangeMasterPassword, RequestChangePriceCurrency, RequestChangeShowBalance, RequestChangeShowZeroBalance, RequestChangeTimeAutoLock, RequestConfirmationComplete, RequestConfirmationCompleteTon, RequestConnectWalletConnect, RequestCrowdloanContributions, RequestDeleteContactAccount, RequestDisconnectWalletConnectSession, RequestEditContactAccount, RequestFindRawMetadata, RequestForgetSite, RequestFreeBalance, RequestGetHistoryTokenPriceData, RequestGetTransaction, RequestKeyringExportMnemonic, RequestMigratePassword, RequestMigrateSoloAccount, RequestMigrateUnifiedAndFetchEligibleSoloAccounts, RequestParseEvmContractInput, RequestParseTransactionSubstrate, RequestPassPhishingPage, RequestPingSession, RequestQrParseRLP, RequestQrSignEvm, RequestQrSignSubstrate, RequestRejectConnectWalletSession, RequestRejectExternalRequest, RequestRejectWalletConnectNotSupport, RequestRemoveInjectedAccounts, RequestResetWallet, RequestResolveExternalRequest, RequestSaveAppConfig, RequestSaveBrowserConfig, RequestSaveMigrationAcknowledgedStatus, RequestSaveOSConfig, RequestSaveRecentAccount, RequestSaveUnifiedAccountMigrationInProgress, RequestSettingsType, RequestSigningApprovePasswordV2, RequestStakePoolingBonding, RequestStakePoolingUnbonding, RequestSubscribeHistory, RequestSubstrateNftSubmitTransaction, RequestTuringCancelStakeCompound, RequestTuringStakeCompound, RequestUnbondingSubmit, RequestUnlockKeyring, RequestUnlockType, ResolveAddressToDomainRequest, ResolveDomainRequest, ResponseAccountCreateWithSecretKey, ResponseAccountExportPrivateKey, ResponseChangeMasterPassword, ResponseFindRawMetadata, ResponseKeyringExportMnemonic, ResponseMigratePassword, ResponseMigrateSoloAccount, ResponseMigrateUnifiedAndFetchEligibleSoloAccounts, ResponseNftImport, ResponseParseEvmContractInput, ResponseParseTransactionSubstrate, ResponseQrParseRLP, ResponseQrSignEvm, ResponseQrSignSubstrate, ResponseRejectExternalRequest, ResponseResetWallet, ResponseResolveExternalRequest, ResponseSubscribeCurrentTokenPrice, ResponseSubscribeHistory, ResponseUnlockKeyring, ShowCampaignPopupRequest, StakingJson, StakingRewardJson, StakingType, ThemeNames, TokenPriorityDetails, TransactionHistoryItem, TransactionResponse, UiSettings, ValidateNetworkRequest, ValidateNetworkResponse, ValidatorInfo } from '@bitriel/extension-base/background/KoniTypes';
+import { AccountExternalError, AddressBookInfo, AmountData, AmountDataWithId, AssetSetting, AssetSettingUpdateReq, BondingOptionParams, BrowserConfirmationType, CampaignBanner, CampaignData, CampaignDataType, ChainType, CronReloadRequest, CrowdloanJson, ExternalRequestPromiseStatus, ExtrinsicType, HistoryTokenPriceJSON, KeyringState, MantaPayEnableMessage, MantaPayEnableParams, MantaPayEnableResponse, MantaPaySyncState, NftCollection, NftJson, NftTransactionRequest, NftTransactionResponse, PriceJson, RequestAccountCreateExternalV2, RequestAccountCreateHardwareMultiple, RequestAccountCreateHardwareV2, RequestAccountCreateWithSecretKey, RequestAccountExportPrivateKey, RequestAddInjectedAccounts, RequestApproveConnectWalletSession, RequestApproveWalletConnectNotSupport, RequestAuthorization, RequestAuthorizationBlock, RequestAuthorizationPerAccount, RequestAuthorizationPerSite, RequestAuthorizeApproveV2, RequestBondingSubmit, RequestCameraSettings, RequestCampaignBannerComplete, RequestChangeEnableChainPatrol, RequestChangeLanguage, RequestChangeMasterPassword, RequestChangePriceCurrency, RequestChangeShowBalance, RequestChangeShowZeroBalance, RequestChangeTimeAutoLock, RequestConfirmationComplete, RequestConfirmationCompleteCardano, RequestConfirmationCompleteTon, RequestConnectWalletConnect, RequestCrowdloanContributions, RequestDeleteContactAccount, RequestDisconnectWalletConnectSession, RequestEditContactAccount, RequestFindRawMetadata, RequestForgetSite, RequestFreeBalance, RequestGetHistoryTokenPriceData, RequestGetTransaction, RequestKeyringExportMnemonic, RequestMigratePassword, RequestMigrateSoloAccount, RequestMigrateUnifiedAndFetchEligibleSoloAccounts, RequestParseEvmContractInput, RequestParseTransactionSubstrate, RequestPassPhishingPage, RequestPingSession, RequestQrParseRLP, RequestQrSignEvm, RequestQrSignSubstrate, RequestRejectConnectWalletSession, RequestRejectExternalRequest, RequestRejectWalletConnectNotSupport, RequestRemoveInjectedAccounts, RequestResetWallet, RequestResolveExternalRequest, RequestSaveAppConfig, RequestSaveBrowserConfig, RequestSaveMigrationAcknowledgedStatus, RequestSaveOSConfig, RequestSaveRecentAccount, RequestSaveUnifiedAccountMigrationInProgress, RequestSettingsType, RequestSigningApprovePasswordV2, RequestStakePoolingBonding, RequestStakePoolingUnbonding, RequestSubscribeHistory, RequestSubstrateNftSubmitTransaction, RequestSwitchCurrentNetworkAuthorization, RequestTuringCancelStakeCompound, RequestTuringStakeCompound, RequestUnbondingSubmit, RequestUnlockKeyring, RequestUnlockType, ResolveAddressToDomainRequest, ResolveDomainRequest, ResponseAccountCreateWithSecretKey, ResponseAccountExportPrivateKey, ResponseChangeMasterPassword, ResponseFindRawMetadata, ResponseKeyringExportMnemonic, ResponseMigratePassword, ResponseMigrateSoloAccount, ResponseMigrateUnifiedAndFetchEligibleSoloAccounts, ResponseNftImport, ResponseParseEvmContractInput, ResponseParseTransactionSubstrate, ResponseQrParseRLP, ResponseQrSignEvm, ResponseQrSignSubstrate, ResponseRejectExternalRequest, ResponseResetWallet, ResponseResolveExternalRequest, ResponseSubscribeCurrentTokenPrice, ResponseSubscribeHistory, ResponseUnlockKeyring, ShowCampaignPopupRequest, StakingJson, StakingRewardJson, StakingType, ThemeNames, TokenPriorityDetails, TransactionHistoryItem, TransactionResponse, UiSettings, ValidateNetworkRequest, ValidateNetworkResponse, ValidatorInfo } from '@bitriel/extension-base/background/KoniTypes';
 import { AccountAuthType, AuthorizeRequest, MessageTypes, MetadataRequest, RequestAccountExport, RequestAuthorizeCancel, RequestAuthorizeReject, RequestCurrentAccountAddress, RequestMetadataApprove, RequestMetadataReject, RequestSigningApproveSignature, RequestSigningCancel, RequestTypes, ResponseAccountExport, ResponseAuthorizeList, ResponseType, SigningRequest, WindowOpenParams } from '@bitriel/extension-base/background/types';
 import { TransactionWarning } from '@bitriel/extension-base/background/warnings/TransactionWarning';
 import { _SUPPORT_TOKEN_PAY_FEE_GROUP, ALL_ACCOUNT_KEY, LATEST_SESSION } from '@bitriel/extension-base/constants';
@@ -26,9 +28,9 @@ import { getPoolingBondingExtrinsic, getPoolingUnbondingExtrinsic, validatePoolB
 import { YIELD_EXTRINSIC_TYPES } from '@bitriel/extension-base/koni/api/yield/helper/utils';
 import KoniState from '@bitriel/extension-base/koni/background/handlers/State';
 import { RequestOptimalTransferProcess } from '@bitriel/extension-base/services/balance-service/helpers/process';
-
+import { DEFAULT_CARDANO_TTL_OFFSET } from '@bitriel/extension-base/services/balance-service/helpers/subscribe/cardano/consts';
 import { isBounceableAddress } from '@bitriel/extension-base/services/balance-service/helpers/subscribe/ton/utils';
-
+import { createCardanoTransaction } from '@bitriel/extension-base/services/balance-service/transfer/cardano-transfer';
 import { getERC20TransactionObject, getERC721Transaction, getEVMTransactionObject, getPSP34TransferExtrinsic } from '@bitriel/extension-base/services/balance-service/transfer/smart-contract';
 import { createSubstrateExtrinsic } from '@bitriel/extension-base/services/balance-service/transfer/token';
 import { createTonTransaction } from '@bitriel/extension-base/services/balance-service/transfer/ton-transfer';
@@ -40,7 +42,7 @@ import { _isPosChainBridge, getClaimPosBridge } from '@bitriel/extension-base/se
 import { DryRunInfo } from '@bitriel/extension-base/services/balance-service/transfer/xcm/utils';
 import { _DEFAULT_MANTA_ZK_CHAIN, _MANTA_ZK_CHAIN_GROUP, _ZK_ASSET_PREFIX } from '@bitriel/extension-base/services/chain-service/constants';
 import { _ChainApiStatus, _ChainConnectionStatus, _ChainState, _NetworkUpsertParams, _ValidateCustomAssetRequest, _ValidateCustomAssetResponse, EnableChainParams, EnableMultiChainParams } from '@bitriel/extension-base/services/chain-service/types';
-import { _getAssetDecimals, _getAssetSymbol, _getChainNativeTokenBasicInfo, _getContractAddressOfToken, _getEvmChainId, _isAssetSmartContractNft, _isChainEvmCompatible, _isChainSubstrateCompatible, _isCustomAsset, _isLocalToken, _isMantaZkAsset, _isNativeToken, _isNativeTokenBySlug, _isPureEvmChain, _isTokenEvmSmartContract, _isTokenTransferredByCardano, _isTokenTransferredByEvm, _isTokenTransferredByTon } from '@bitriel/extension-base/services/chain-service/utils';
+import { _getAssetDecimals, _getAssetSymbol, _getChainNativeTokenBasicInfo, _getContractAddressOfToken, _getEvmChainId, _isAssetSmartContractNft, _isChainEnabled, _isChainEvmCompatible, _isChainSubstrateCompatible, _isCustomAsset, _isLocalToken, _isMantaZkAsset, _isNativeToken, _isNativeTokenBySlug, _isPureEvmChain, _isTokenEvmSmartContract, _isTokenTransferredByCardano, _isTokenTransferredByEvm, _isTokenTransferredByTon } from '@bitriel/extension-base/services/chain-service/utils';
 import { TokenHasBalanceInfo, TokenPayFeeInfo } from '@bitriel/extension-base/services/fee-service/interfaces';
 import { calculateToAmountByReservePool } from '@bitriel/extension-base/services/fee-service/utils';
 import { batchExtrinsicSetFeeHydration, getAssetHubTokensCanPayFee, getHydrationTokensCanPayFee } from '@bitriel/extension-base/services/fee-service/utils/tokenPayFee';
@@ -59,12 +61,10 @@ import { RequestAccountProxyEdit, RequestAccountProxyForget } from '@bitriel/ext
 import { RequestSubmitTransfer, RequestSubscribeTransfer, ResponseSubscribeTransfer } from '@bitriel/extension-base/types/balance/transfer';
 import { GetNotificationParams, RequestIsClaimedPolygonBridge, RequestSwitchStatusParams } from '@bitriel/extension-base/types/notification';
 import { SwapPair, SwapQuoteResponse, SwapRequest, SwapRequestResult, SwapSubmitParams, SwapSubmitStepData, ValidateSwapProcessParams } from '@bitriel/extension-base/types/swap';
-import { _analyzeAddress, CalculateMaxTransferable, calculateMaxTransferable, combineAllAccountProxy, createTransactionFromRLP, detectTransferTxType, getAccountSignMode, isSameAddress, MODULE_SUPPORT, reformatAddress, signatureToHex, Transaction as QrTransaction, transformAccounts, transformAddresses, uniqueStringArray } from '@bitriel/extension-base/utils';
+import { _analyzeAddress, CalculateMaxTransferable, calculateMaxTransferable, combineAllAccountProxy, createPromiseHandler, createTransactionFromRLP, detectTransferTxType, getAccountSignMode, isSameAddress, MODULE_SUPPORT, reformatAddress, signatureToHex, Transaction as QrTransaction, transformAccounts, transformAddresses, uniqueStringArray } from '@bitriel/extension-base/utils';
 import { parseContractInput, parseEvmRlp } from '@bitriel/extension-base/utils/eth/parseTransaction';
 import { getId } from '@bitriel/extension-base/utils/getId';
 import { MetadataDef } from '@bitriel/extension-inject/types';
-import { Common } from '@ethereumjs/common';
-import { LegacyTransaction } from '@ethereumjs/tx';
 import { getKeypairTypeByAddress, isAddress, isCardanoAddress, isSubstrateAddress, isTonAddress } from '@subwallet/keyring';
 import { CardanoKeypairTypes, EthereumKeypairTypes, SubstrateKeypairTypes, TonKeypairTypes } from '@subwallet/keyring/types';
 import { keyring } from '@subwallet/ui-keyring';
@@ -738,6 +738,47 @@ export default class KoniExtension {
         });
       });
     });
+  }
+
+  private async switchCurrentNetworkAuthorization ({ authSwitchNetworkType, networkKey, url }: RequestSwitchCurrentNetworkAuthorization): Promise<ResponseAuthorizeList> {
+    const authUrls = await this.#koniState.getAuthList();
+    const chainInfo = this.#koniState.chainService.getChainInfoByKey(networkKey);
+    const chainState = this.#koniState.getChainStateByKey(networkKey);
+    const { promise, resolve } = createPromiseHandler<ResponseAuthorizeList>();
+
+    const typeInfoMap: Record<AccountAuthType, keyof _ChainInfo> = {
+      substrate: 'substrateInfo',
+      evm: 'evmInfo',
+      cardano: 'cardanoInfo',
+      ton: 'tonInfo'
+    };
+
+    const typeInfoKey = typeInfoMap[authSwitchNetworkType];
+
+    if (!typeInfoKey || !chainInfo[typeInfoKey]) {
+      throw new Error(t('Network {{networkKey}} is not {{authSwitchNetworkType}}', { replace: { networkKey, authSwitchNetworkType } }));
+    }
+
+    const authUrl = authUrls[url];
+
+    if (!authUrl) {
+      throw new Error(t('Not found {{url}} in auth list', { replace: { url } }));
+    }
+
+    if (chainInfo && !_isChainEnabled(chainState)) {
+      await this.enableChainWithPriorityAssets({ chainSlug: networkKey, enableTokens: true });
+    }
+
+    if (!authUrl.accountAuthTypes.includes(authSwitchNetworkType)) {
+      throw new Error(t('Network {{networkKey}} is not supported by {{authSwitchNetworkType}}', { replace: { networkKey, authSwitchNetworkType } }));
+    }
+
+    authUrl.currentNetworkMap[authSwitchNetworkType] = networkKey;
+    this.#koniState.setAuthorize(authUrls, () => {
+      resolve({ list: authUrls });
+    });
+
+    return promise;
   }
 
   private changeAuthorization (data: RequestAuthorization, id: string, port: chrome.runtime.Port): boolean {
@@ -1442,6 +1483,21 @@ export default class KoniExtension {
           transferAll: !!transferAll, // currently not used
           tonApi
         });
+      } else if (isCardanoAddress(from) && isCardanoAddress(to) && _isTokenTransferredByCardano(transferTokenInfo)) {
+        chainType = ChainType.CARDANO;
+        const cardanoApi = this.#koniState.getCardanoApi(chain);
+
+        [transaction, transferAmount.value] = await createCardanoTransaction({
+          tokenInfo: transferTokenInfo,
+          from,
+          to,
+          networkKey: chain,
+          value: value || '0',
+          cardanoTtlOffset: DEFAULT_CARDANO_TTL_OFFSET,
+          transferAll: !!transferAll,
+          cardanoApi,
+          nativeTokenInfo
+        });
       } else {
         const substrateApi = this.#koniState.getSubstrateApi(chain);
 
@@ -2032,6 +2088,7 @@ export default class KoniExtension {
     const _request: CalculateMaxTransferable = {
       address: address,
       value, // todo: lazy subscribe to improve performance
+      cardanoApi: this.#koniState.chainService.getCardanoApi(chain),
       destChain,
       destToken,
       evmApi: this.#koniState.chainService.getEvmApi(chain),
@@ -2249,7 +2306,19 @@ export default class KoniExtension {
     return this.#koniState.getConfirmationsQueueSubjectTon().getValue();
   }
 
+  private subscribeConfirmationsCardano (id: string, port: chrome.runtime.Port) {
+    const cb = createSubscription<'pri(confirmationsCardano.subscribe)'>(id, port);
 
+    const subscription = this.#koniState.getConfirmationsQueueSubjectCardano().subscribe(cb);
+
+    this.createUnsubscriptionHandle(id, subscription.unsubscribe);
+
+    port.onDisconnect.addListener((): void => {
+      this.cancelSubscription(id);
+    });
+
+    return this.#koniState.getConfirmationsQueueSubjectCardano().getValue();
+  }
 
   private async completeConfirmation (request: RequestConfirmationComplete) {
     return await this.#koniState.completeConfirmation(request);
@@ -2259,7 +2328,9 @@ export default class KoniExtension {
     return await this.#koniState.completeConfirmationTon(request);
   }
 
-
+  private async completeConfirmationCardano (request: RequestConfirmationCompleteCardano) {
+    return await this.#koniState.completeConfirmationCardano(request);
+  }
 
   /// Sign Qr
 
@@ -4774,6 +4845,8 @@ export default class KoniExtension {
         return this.getAuthListV2();
       case 'pri(authorize.toggle)':
         return this.toggleAuthorization2(request as string);
+      case 'pri(authorize.switchCurrentNetwork)':
+        return this.switchCurrentNetworkAuthorization(request as RequestSwitchCurrentNetworkAuthorization);
       case 'pri(settings.changeBalancesVisibility)':
         return await this.toggleBalancesVisibility();
 
@@ -5096,10 +5169,14 @@ export default class KoniExtension {
         return this.subscribeConfirmations(id, port);
       case 'pri(confirmationsTon.subscribe)':
         return this.subscribeConfirmationsTon(id, port);
+      case 'pri(confirmationsCardano.subscribe)':
+        return this.subscribeConfirmationsCardano(id, port);
       case 'pri(confirmations.complete)':
         return await this.completeConfirmation(request as RequestConfirmationComplete);
       case 'pri(confirmationsTon.complete)':
         return await this.completeConfirmationTon(request as RequestConfirmationCompleteTon);
+      case 'pri(confirmationsCardano.complete)':
+        return await this.completeConfirmationCardano(request as RequestConfirmationCompleteCardano);
 
       /// Stake
       case 'pri(bonding.getBondingOptions)':

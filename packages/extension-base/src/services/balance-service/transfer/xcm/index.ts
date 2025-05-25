@@ -1,7 +1,6 @@
 // Copyright 2019-2022 @bitriel/extension-base
 // SPDX-License-Identifier: Apache-2.0
 
-import subwalletApiSdk from '@bitriel/bitriel-api-sdk';
 import { _ChainAsset, _ChainInfo } from '@bitriel/chain-list/types';
 import { XCM_MIN_AMOUNT_RATIO } from '@bitriel/extension-base/constants';
 import { _isAcrossBridgeXcm, _isPolygonBridgeXcm, _isPosBridgeXcm, _isSnowBridgeXcm } from '@bitriel/extension-base/core/substrate/xcm-parser';
@@ -17,6 +16,7 @@ import { _EvmApi, _SubstrateApi } from '@bitriel/extension-base/services/chain-s
 import { _isNativeToken } from '@bitriel/extension-base/services/chain-service/utils';
 import { EvmEIP1559FeeOption, EvmFeeInfo, FeeInfo, RuntimeDispatchInfo, TransactionFee } from '@bitriel/extension-base/types';
 import { combineEthFee } from '@bitriel/extension-base/utils';
+import subwalletApiSdk from '@bitriel/bitriel-api-sdk';
 import { TransactionConfig } from 'web3-core';
 
 import { SubmittableExtrinsic } from '@polkadot/api/types';

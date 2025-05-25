@@ -1,20 +1,33 @@
 // Copyright 2019-2022 @bitriel/extension-base
 // SPDX-License-Identifier: Apache-2.0
 
+import { Transaction } from '@emurgo/cardano-serialization-lib-nodejs';
 import { _ChainAsset } from '@bitriel/chain-list/types';
+import { CardanoTxOutput } from '@bitriel/extension-base/services/balance-service/helpers/subscribe/cardano/types';
 
 export function getCardanoAssetId (chainAsset: _ChainAsset): string {
   return chainAsset.metadata?.cardanoId as string;
 }
 
+export function getCardanoTxFee (payload: string) {
+  return BigInt(Transaction.from_hex(payload).body().fee().to_str());
+}
 
+export function getAdaBelongUtxo (payload: string, receiverAddress: string) {
+  const txOutputsRaw = Transaction.from_hex(payload).body().outputs().to_json();
+  const txOutputs = JSON.parse(txOutputsRaw) as CardanoTxOutput[];
+  const receiverUtxo = txOutputs.find((utxo) => utxo.address === receiverAddress); // must has utxo to receiver
+
+  // @ts-ignore
+  return BigInt(receiverUtxo.amount.coin);
+}
 
 export const cborToBytes = (hex: string): Uint8Array => {
   if (hex.length % 2 === 0 && /^[0-9A-F]*$/i.test(hex)) {
-    return new Uint8Array(Buffer.from(hex, 'hex'));
+    return Buffer.from(hex, 'hex');
   }
 
-  return new Uint8Array(Buffer.from(hex, 'utf-8'));
+  return Buffer.from(hex, 'utf-8');
 };
 
 export async function retryCardanoTxStatus (fn: () => Promise<boolean>, options: { retries: number, delay: number }): Promise<boolean> {

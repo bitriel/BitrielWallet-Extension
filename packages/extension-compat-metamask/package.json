@@ -1,30 +1,30 @@
 {
   "author": "Jaco Greeff <jacogr@gmail.com>",
-  "bugs": "https://github.com/bitriel/BitrielWallet-Extension/issues",
+  "bugs": "https://github.com/Koniverse/Subwallet-V2/issues",
   "contributors": [],
   "description": "Metamask compatibility layer",
-  "homepage": "https://github.com/bitriel/BitrielWallet-Extension/tree/master/packages/extension-compat-metamask#readme",
+  "homepage": "https://github.com/Koniverse/Subwallet-V2/tree/master/packages/extension-compat-metamask#readme",
   "license": "Apache-2.0",
   "maintainers": [],
   "name": "@bitriel/extension-compat-metamask",
   "repository": {
     "directory": "packages/extension-compat-metamask",
     "type": "git",
-    "url": "https://github.com/bitriel/BitrielWallet-Extension.git"
+    "url": "https://github.com/Koniverse/Subwallet-V2.git"
   },
   "sideEffects": [
     "./detectPackage.js",
     "./detectPackage.cjs"
   ],
   "type": "module",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "main": "index.js",
   "dependencies": {
     "@babel/runtime": "^7.20.6",
-    "@bitriel/extension-inject": "^1.0.0",
+    "@bitriel/extension-inject": "^1.0.4",
     "@metamask/detect-provider": "^1.2.0",
-    "@polkadot/types": "^15.7.2",
-    "@polkadot/util": "^13.4.3",
+    "@polkadot/types": "^16.0.1",
+    "@polkadot/util": "^13.5.1",
     "web3": "^1.10.0"
   },
   "peerDependencies": {

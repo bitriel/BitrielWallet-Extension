@@ -1,20 +1,20 @@
 {
   "author": "Jaco Greeff <jacogr@gmail.com>",
-  "bugs": "https://github.com/bitriel/BitrielWallet-Extension/issues",
+  "bugs": "https://github.com/Koniverse/Subwallet-V2/issues",
   "contributors": [],
   "description": "Definitions for all known chains as exposed by the extension.",
-  "homepage": "https://github.com/bitriel/BitrielWallet-Extension/tree/master/packages/extension-mocks#readme",
+  "homepage": "https://github.com/Koniverse/Subwallet-V2/tree/master/packages/extension-mocks#readme",
   "license": "Apache-2.0",
   "maintainers": [],
   "name": "@bitriel/extension-mocks",
   "repository": {
     "directory": "packages/extension-mocks",
     "type": "git",
-    "url": "https://github.com/bitriel/BitrielWallet-Extension.git"
+    "url": "https://github.com/Koniverse/Subwallet-V2.git"
   },
   "sideEffects": false,
   "type": "module",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "main": "index.js",
   "dependencies": {
     "@babel/runtime": "^7.20.6",

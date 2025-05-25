@@ -1,7 +1,7 @@
 // Copyright 2019-2022 @bitriel/extension-koni-ui authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { RequestAuthorizationBlock, RequestAuthorizationPerSite } from '@bitriel/extension-base/background/KoniTypes';
+import { RequestAuthorizationBlock, RequestAuthorizationPerSite, RequestSwitchCurrentNetworkAuthorization } from '@bitriel/extension-base/background/KoniTypes';
 import { ResponseAuthorizeList } from '@bitriel/extension-base/background/types';
 import { AuthUrls } from '@bitriel/extension-base/services/request-service/types';
 
@@ -17,6 +17,10 @@ export async function getAuthListV2 (): Promise<ResponseAuthorizeList> {
 
 export async function toggleAuthorization (url: string): Promise<ResponseAuthorizeList> {
   return sendMessage('pri(authorize.toggle)', url);
+}
+
+export async function switchCurrentNetworkAuthorization (request: RequestSwitchCurrentNetworkAuthorization): Promise<ResponseAuthorizeList> {
+  return sendMessage('pri(authorize.switchCurrentNetwork)', request);
 }
 
 export async function changeAuthorizationAll (connectValue: boolean, callback: (data: AuthUrls) => void): Promise<boolean> {

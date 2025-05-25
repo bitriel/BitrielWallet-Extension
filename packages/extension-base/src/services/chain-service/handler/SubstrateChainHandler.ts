@@ -1,6 +1,7 @@
 // Copyright 2019-2022 @bitriel/extension-base authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
+import { GearApi } from '@gear-js/api';
 import { _AssetType } from '@bitriel/chain-list/types';
 import { getDefaultWeightV2 } from '@bitriel/extension-base/koni/api/contract-handler/wasm/utils';
 import { ChainService } from '@bitriel/extension-base/services/chain-service';
@@ -9,7 +10,6 @@ import { SubstrateApi } from '@bitriel/extension-base/services/chain-service/han
 import { _ApiOptions, _SubstrateChainSpec } from '@bitriel/extension-base/services/chain-service/handler/types';
 import { _SmartContractTokenInfo, _SubstrateApi } from '@bitriel/extension-base/services/chain-service/types';
 import { cacheMetadata, GEAR_DEFAULT_ADDRESS, getGRC20ContractPromise, getVFTContractPromise } from '@bitriel/extension-base/utils';
-import { GearApi } from '@gear-js/api';
 
 import { ApiPromise } from '@polkadot/api';
 import { ContractPromise } from '@polkadot/api-contract';

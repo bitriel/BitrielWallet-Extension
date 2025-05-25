@@ -5,7 +5,8 @@ import { _ChainAsset, _ChainInfo } from '@bitriel/chain-list/types';
 import { AmountData } from '@bitriel/extension-base/background/KoniTypes';
 import { _SUPPORT_TOKEN_PAY_FEE_GROUP, XCM_FEE_RATIO } from '@bitriel/extension-base/constants';
 import { _isSnowBridgeXcm } from '@bitriel/extension-base/core/substrate/xcm-parser';
-
+import { DEFAULT_CARDANO_TTL_OFFSET } from '@bitriel/extension-base/services/balance-service/helpers/subscribe/cardano/consts';
+import { createCardanoTransaction } from '@bitriel/extension-base/services/balance-service/transfer/cardano-transfer';
 import { getERC20TransactionObject, getEVMTransactionObject } from '@bitriel/extension-base/services/balance-service/transfer/smart-contract';
 import { createSubstrateExtrinsic } from '@bitriel/extension-base/services/balance-service/transfer/token';
 import { createTonTransaction } from '@bitriel/extension-base/services/balance-service/transfer/ton-transfer';
@@ -14,16 +15,16 @@ import { _isAcrossChainBridge, _isAcrossTestnetBridge } from '@bitriel/extension
 import { isAvailChainBridge } from '@bitriel/extension-base/services/balance-service/transfer/xcm/availBridge';
 import { _isPolygonChainBridge } from '@bitriel/extension-base/services/balance-service/transfer/xcm/polygonBridge';
 import { _isPosChainBridge } from '@bitriel/extension-base/services/balance-service/transfer/xcm/posBridge';
-import { _EvmApi, _SubstrateApi, _TonApi } from '@bitriel/extension-base/services/chain-service/types';
-import { _getAssetDecimals, _getContractAddressOfToken, _isChainEvmCompatible, _isChainTonCompatible, _isLocalToken, _isNativeToken, _isPureEvmChain, _isTokenEvmSmartContract, _isTokenTransferredByEvm, _isTokenTransferredByTon } from '@bitriel/extension-base/services/chain-service/utils';
+import { _CardanoApi, _EvmApi, _SubstrateApi, _TonApi } from '@bitriel/extension-base/services/chain-service/types';
+import { _getAssetDecimals, _getContractAddressOfToken, _isChainCardanoCompatible, _isChainEvmCompatible, _isChainTonCompatible, _isLocalToken, _isNativeToken, _isPureEvmChain, _isTokenEvmSmartContract, _isTokenTransferredByCardano, _isTokenTransferredByEvm, _isTokenTransferredByTon } from '@bitriel/extension-base/services/chain-service/utils';
 import { calculateToAmountByReservePool, FEE_COVERAGE_PERCENTAGE_SPECIAL_CASE } from '@bitriel/extension-base/services/fee-service/utils';
 import { getHydrationRate } from '@bitriel/extension-base/services/fee-service/utils/tokenPayFee';
-import { isTonTransaction } from '@bitriel/extension-base/services/transaction-service/helpers';
+import { isCardanoTransaction, isTonTransaction } from '@bitriel/extension-base/services/transaction-service/helpers';
 import { ValidateTransactionResponseInput } from '@bitriel/extension-base/services/transaction-service/types';
 import { EvmEIP1559FeeOption, FeeChainType, FeeDetail, FeeInfo, SubstrateTipInfo, TransactionFee } from '@bitriel/extension-base/types';
 import { ResponseSubscribeTransfer } from '@bitriel/extension-base/types/balance/transfer';
 import { BN_ZERO } from '@bitriel/extension-base/utils';
-import { isTonAddress } from '@subwallet/keyring';
+import { isCardanoAddress, isTonAddress } from '@subwallet/keyring';
 import BigN from 'bignumber.js';
 import { TransactionConfig } from 'web3-core';
 
@@ -43,6 +44,7 @@ export interface CalculateMaxTransferable extends TransactionFee {
   substrateApi: _SubstrateApi;
   evmApi: _EvmApi;
   tonApi: _TonApi;
+  cardanoApi: _CardanoApi;
   isTransferLocalTokenAndPayThatTokenAsFee: boolean;
   isTransferNativeTokenAndPayLocalTokenAsFee: boolean;
   nativeToken: _ChainAsset;
@@ -64,6 +66,8 @@ export const detectTransferTxType = (srcToken: _ChainAsset, srcChain: _ChainInfo
       return 'evm';
     } else if (_isChainTonCompatible(srcChain) && _isTokenTransferredByTon(srcToken)) {
       return 'ton';
+    } else if (_isChainCardanoCompatible(srcChain) && _isTokenTransferredByCardano(srcToken)) {
+      return 'cardano';
     } else {
       return 'substrate';
     }
@@ -94,7 +98,7 @@ export const calculateMaxTransferable = async (id: string, request: CalculateMax
 };
 
 export const calculateTransferMaxTransferable = async (id: string, request: CalculateMaxTransferable, freeBalance: AmountData, fee: FeeInfo): Promise<ResponseSubscribeTransfer> => {
-  const { address, destChain, evmApi, feeCustom, feeOption, isTransferLocalTokenAndPayThatTokenAsFee, isTransferNativeTokenAndPayLocalTokenAsFee, nativeToken, srcChain, srcToken, substrateApi, tonApi, value } = request;
+  const { address, cardanoApi, destChain, evmApi, feeCustom, feeOption, isTransferLocalTokenAndPayThatTokenAsFee, isTransferNativeTokenAndPayLocalTokenAsFee, nativeToken, srcChain, srcToken, substrateApi, tonApi, value } = request;
   const feeChainType = fee.type;
   let estimatedFee: string;
   let feeOptions: FeeDetail;
@@ -151,7 +155,18 @@ export const calculateTransferMaxTransferable = async (id: string, request: Calc
         transferAll: false, // currently not used
         tonApi
       });
-
+    } else if (isCardanoAddress(address) && _isTokenTransferredByCardano(srcToken)) {
+      [transaction] = await createCardanoTransaction({
+        tokenInfo: srcToken,
+        from: address,
+        to: address,
+        networkKey: srcChain.slug,
+        value,
+        cardanoTtlOffset: DEFAULT_CARDANO_TTL_OFFSET,
+        transferAll: false,
+        cardanoApi,
+        nativeTokenInfo: nativeToken
+      });
     } else {
       [transaction] = await createSubstrateExtrinsic({
         transferAll: false,
@@ -213,7 +228,12 @@ export const calculateTransferMaxTransferable = async (id: string, request: Calc
             ...fee,
             estimatedFee: estimatedFee
           };
-
+        } else if (isCardanoTransaction(transaction)) {
+          estimatedFee = transaction.estimateCardanoFee;
+          feeOptions = {
+            ...fee,
+            estimatedFee: estimatedFee
+          };
         } else {
           // Not implemented yet
           estimatedFee = '0';

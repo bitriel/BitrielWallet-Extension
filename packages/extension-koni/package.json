@@ -1,25 +1,25 @@
 {
-  "author": "Bitriel",
-  "bugs": "https://github.com/bitriel/BitrielWallet-Extension/issues",
+  "author": "Koni Studio",
+  "bugs": "https://github.com/Koniverse/Subwallet-V2/issues",
   "contributors": [],
   "description": "A sample signer extension for the @polkadot/api",
-  "homepage": "https://github.com/bitriel/BitrielWallet-Extension/tree/master/packages/extension-koni#readme",
+  "homepage": "https://github.com/Koniverse/Subwallet-V2/tree/master/packages/extension-koni#readme",
   "license": "Apache-2.0",
   "maintainers": [],
   "name": "@bitriel/extension-koni",
   "repository": {
     "directory": "packages/extension-koni",
     "type": "git",
-    "url": "https://github.com/bitriel/BitrielWallet-Extension.git"
+    "url": "https://github.com/Koniverse/Subwallet-V2.git"
   },
   "sideEffects": false,
   "type": "module",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "dependencies": {
     "@babel/runtime": "^7.20.6",
-    "@bitriel/extension-base": "^1.0.0",
-    "@bitriel/extension-inject": "^1.0.0",
-    "@bitriel/extension-koni-ui": "^1.0.0",
+    "@bitriel/extension-base": "^1.0.4",
+    "@bitriel/extension-inject": "^1.0.4",
+    "@bitriel/extension-koni-ui": "^1.0.4",
     "@emurgo/cardano-serialization-lib-browser": "^13.2.0"
   },
   "devDependencies": {

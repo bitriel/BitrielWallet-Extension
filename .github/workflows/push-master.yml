@@ -1,11 +1,11 @@
-name: Main
+name: Master
 on:
   push:
     branches:
-      - main
+      - master
 
 jobs:
-  main:
+  master:
     if: "! startsWith(github.event.head_commit.message, '[CI Skip]')"
     strategy:
       matrix:
@@ -23,7 +23,7 @@ jobs:
         CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
         GH_PAT: ${{ secrets.GH_PAT }}
         GH_RELEASE_GITHUB_API_TOKEN: ${{ secrets.GH_PAT }}
-        GH_RELEASE_FILES: main-build.zip,main-build-firefox.zip,main-src.zip
+        GH_RELEASE_FILES: master-build.zip,master-build-firefox.zip,master-src.zip
         DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
         NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         TRANSAK_API_KEY: ${{ secrets.TRANSAK_API_KEY }}
@@ -57,8 +57,8 @@ jobs:
       id: nextcloud_upload
       uses: trympet/nextcloud-artifacts-action@v2
       with:
-        name: 'main-build.zip'
-        path: 'main-build.zip'
+        name: 'master-build.zip'
+        path: 'master-build.zip'
         nextcloud-url: 'https://file.cdmteck.com'
         nextcloud-username: ${{ secrets.NEXTCLOUD_USERNAME }}
         nextcloud-password: ${{ secrets.NEXTCLOUD_PASSWORD }}
@@ -67,8 +67,8 @@ jobs:
       id: nextcloud_upload_firefox
       uses: trympet/nextcloud-artifacts-action@v2
       with:
-        name: 'main-build-firefox.zip'
-        path: 'main-build-firefox.zip'
+        name: 'master-build-firefox.zip'
+        path: 'master-build-firefox.zip'
         nextcloud-url: 'https://file.cdmteck.com'
         nextcloud-username: ${{ secrets.NEXTCLOUD_USERNAME }}
         nextcloud-password: ${{ secrets.NEXTCLOUD_PASSWORD }}
@@ -78,7 +78,7 @@ jobs:
       uses: nwtgck/actions-netlify@v2.0
       with:
         publish-dir: './packages/web-runner/build'
-        production-branch: main
+        production-branch: master
         github-token: ${{ secrets.GH_PAT }}
         deploy-message: ${{ github.event.head_commit.message }}
         enable-pull-request-comment: true
@@ -97,7 +97,7 @@ jobs:
         username: Extension Worker
         title: ${{ github.workflow }}
         description: |
-          Main is completed.
+          Master is completed.
           - Extension: ${{ steps.nextcloud_upload.outputs.SHAREABLE_URL }}
           - Extension (Firefox): ${{ steps.nextcloud_upload_firefox.outputs.SHAREABLE_URL }}
           - Web-runner: ${{ steps.netlify_deployment.outputs.deploy-url }}

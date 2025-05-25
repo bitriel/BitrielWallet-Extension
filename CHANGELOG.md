@@ -1,5 +1,28 @@
 # CHANGELOG
 
+## 1.0.4
+Build date: May 23, 2025.
+
+Features & Update:
+- Support Bridge-Swap process for cross-chain swap on EVM (#4321)
+- Update UI to clearly display fees (#4347)
+
+Bug fixed:
+- Fixed bug related to feedback from Cardano Foundation (#4352)
+
+
+## 1.3.37
+Build date: May 23, 2025.
+
+Features & Update:
+- Update fee for UniSwap (#4385)
+- Update Wallet Connector Libraries (#4353)
+- Turn off the update manifest v3 popup (#4023)
+
+Bug fixed:
+- Fixed bug when connects to Remix (#4330)
+
+
 ## 1.3.36
 Build date: May 16, 2025.
 

@@ -1,9 +1,9 @@
 // Copyright 2019-2022 @bitriel/extension-base
 // SPDX-License-Identifier: Apache-2.0
 
-import subwalletApiSdk from '@bitriel/bitriel-api-sdk';
 import { COMMON_CHAIN_SLUGS } from '@bitriel/chain-list';
 import { _isAcrossBridgeXcm } from '@bitriel/extension-base/core/substrate/xcm-parser';
+import subwalletApiSdk from '@bitriel/bitriel-api-sdk';
 
 import { CreateXcmExtrinsicProps } from '..';
 

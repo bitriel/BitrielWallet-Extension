@@ -1,17 +1,17 @@
 // Copyright 2019-2022 @bitriel/extension-koni authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import subwalletApiSdk from '@bitriel/bitriel-api-sdk';
+import * as CardanoWasm from '@emurgo/cardano-serialization-lib-nodejs';
 import { _AssetRef, _AssetType, _ChainAsset, _ChainInfo, _MultiChainAsset } from '@bitriel/chain-list/types';
-
+import { CardanoProviderError } from '@bitriel/extension-base/background/errors/CardanoProviderError';
 import { EvmProviderError } from '@bitriel/extension-base/background/errors/EvmProviderError';
 import { TransactionError } from '@bitriel/extension-base/background/errors/TransactionError';
 import { withErrorLog } from '@bitriel/extension-base/background/handlers/helpers';
 import { isSubscriptionRunning, unsubscribe } from '@bitriel/extension-base/background/handlers/subscriptions';
-import { AddTokenRequestExternal, AmountData, APIItemState, ApiMap, AuthRequestV2, ChainStakingMetadata, ChainType, ConfirmationsQueue, ConfirmationsQueueTon, ConfirmationType, CrowdloanItem, CrowdloanJson, CurrencyType, EvmProviderErrorType, EvmSendTransactionParams, EvmSendTransactionRequest, EvmSignatureRequest, ExternalRequestPromise, ExternalRequestPromiseStatus, ExtrinsicType, MantaAuthorizationContext, MantaPayConfig, MantaPaySyncState, NftCollection, NftItem, NftJson, NominatorMetadata, RequestAccountExportPrivateKey, RequestConfirmationComplete, RequestConfirmationCompleteTon, RequestCrowdloanContributions, RequestSettingsType, ResponseAccountExportPrivateKey, ServiceInfo, SingleModeJson, StakingItem, StakingJson, StakingRewardItem, StakingRewardJson, StakingType, UiSettings } from '@bitriel/extension-base/background/KoniTypes';
+import { AddressCardanoTransactionBalance, AddTokenRequestExternal, AmountData, APIItemState, ApiMap, AuthRequestV2, CardanoKeyType, CardanoProviderErrorType, CardanoSignatureRequest, CardanoTransactionDappConfig, ChainStakingMetadata, ChainType, ConfirmationsQueue, ConfirmationsQueueCardano, ConfirmationsQueueTon, ConfirmationType, CrowdloanItem, CrowdloanJson, CurrencyType, EvmProviderErrorType, EvmSendTransactionParams, EvmSendTransactionRequest, EvmSignatureRequest, ExternalRequestPromise, ExternalRequestPromiseStatus, ExtrinsicType, MantaAuthorizationContext, MantaPayConfig, MantaPaySyncState, NftCollection, NftItem, NftJson, NominatorMetadata, RequestAccountExportPrivateKey, RequestCardanoSignData, RequestCardanoSignTransaction, RequestConfirmationComplete, RequestConfirmationCompleteCardano, RequestConfirmationCompleteTon, RequestCrowdloanContributions, RequestSettingsType, ResponseAccountExportPrivateKey, ResponseCardanoSignData, ResponseCardanoSignTransaction, ServiceInfo, SingleModeJson, StakingItem, StakingJson, StakingRewardItem, StakingRewardJson, StakingType, UiSettings } from '@bitriel/extension-base/background/KoniTypes';
 import { RequestAuthorizeTab, RequestRpcSend, RequestRpcSubscribe, RequestRpcUnsubscribe, RequestSign, ResponseRpcListProviders, ResponseSigning } from '@bitriel/extension-base/background/types';
 import { BACKEND_API_URL, BACKEND_PRICE_HISTORY_URL, EnvConfig, MANTA_PAY_BALANCE_INTERVAL, REMIND_EXPORT_ACCOUNT } from '@bitriel/extension-base/constants';
-import { convertErrorFormat, generateValidationProcess, PayloadValidated, ValidateStepFunction, validationAuthMiddleware, validationAuthWCMiddleware, validationConnectMiddleware, validationEvmDataTransactionMiddleware, validationEvmSignMessageMiddleware } from '@bitriel/extension-base/core/logic-validation';
+import { convertErrorFormat, generateValidationProcess, PayloadValidated, ValidateStepFunction, validationAuthCardanoMiddleware, validationAuthMiddleware, validationAuthWCMiddleware, validationCardanoSignDataMiddleware, validationConnectMiddleware, validationEvmDataTransactionMiddleware, validationEvmSignMessageMiddleware } from '@bitriel/extension-base/core/logic-validation';
 import { BalanceService } from '@bitriel/extension-base/services/balance-service';
 import { ServiceStatus } from '@bitriel/extension-base/services/base/types';
 import BuyService from '@bitriel/extension-base/services/buy-service';
@@ -35,7 +35,7 @@ import NotificationService from '@bitriel/extension-base/services/notification-s
 import { PriceService } from '@bitriel/extension-base/services/price-service';
 import RequestService from '@bitriel/extension-base/services/request-service';
 import { openPopup } from '@bitriel/extension-base/services/request-service/handler/PopupHandler';
-
+import { convertAssetToValue, convertValueToAsset, extractKeyHashesFromCollaterals, extractKeyHashesFromRequiredSigners, extractKeyHashesFromScripts, extractKeyHashesFromWithdrawals, extractKeyHashFromCertificate, getBalanceAddressMap } from '@bitriel/extension-base/services/request-service/helper';
 import { AuthUrls, MetaRequest, SignRequest } from '@bitriel/extension-base/services/request-service/types';
 import SettingService from '@bitriel/extension-base/services/setting-service/SettingService';
 import DatabaseService from '@bitriel/extension-base/services/storage-service/DatabaseService';
@@ -46,10 +46,11 @@ import { TransactionEventResponse } from '@bitriel/extension-base/services/trans
 import WalletConnectService from '@bitriel/extension-base/services/wallet-connect-service';
 import { SWStorage } from '@bitriel/extension-base/storage';
 import { BalanceItem, BasicTxErrorType, CurrentAccountInfo, EvmFeeInfo, RequestCheckPublicAndSecretKey, ResponseCheckPublicAndSecretKey, StorageDataInterface } from '@bitriel/extension-base/types';
-import { addLazy, isManifestV3, stripUrl, targetIsWeb } from '@bitriel/extension-base/utils';
+import { addLazy, isManifestV3, isSameAddress, reformatAddress, stripUrl, targetIsWeb } from '@bitriel/extension-base/utils';
+import { convertCardanoHexToBech32, validateAddressNetwork } from '@bitriel/extension-base/utils/cardano';
 import { createPromiseHandler } from '@bitriel/extension-base/utils/promise';
 import { MetadataDef, ProviderMeta } from '@bitriel/extension-inject/types';
-
+import subwalletApiSdk from '@bitriel/bitriel-api-sdk';
 import { keyring } from '@subwallet/ui-keyring';
 import BN from 'bn.js';
 import { t } from 'i18next';
@@ -1276,11 +1277,264 @@ export default class KoniState {
     });
   }
 
+  public async cardanoGetBalance (id: string, url: string, address: string): Promise<CardanoWasm.Value> {
+    const authInfoMap = await this.getAuthList();
+    const authInfo = authInfoMap[stripUrl(url)];
 
+    let networkKey = authInfo?.currentNetworkMap.cardano;
 
+    const autoActiveChain = authInfo?.isAllowed || false;
+    const chainInfo = this.requestService.getDAppChainInfo({
+      autoActive: autoActiveChain,
+      accessType: 'cardano',
+      defaultChain: networkKey,
+      url
+    });
 
+    networkKey = chainInfo?.slug || 'cardano';
+    const cardanoApi = this.chainService.getCardanoApi(networkKey);
+    const networkAddress = reformatAddress(address, chainInfo?.isTestnet ? 0 : 1);
+    const balances = await cardanoApi.getBalanceMap(networkAddress);
 
+    return convertAssetToValue(balances);
+  }
 
+  public async cardanoSignData (id: string, url: string, params: RequestCardanoSignData, currentAddress: string): Promise<ResponseCardanoSignData> {
+    const { address: addressHex, payload } = params;
+    const address = convertCardanoHexToBech32(addressHex);
+    const payloadValidation: PayloadValidated = {
+      address,
+      type: 'cardano',
+      payloadAfterValidated: payload,
+      errors: [],
+      networkKey: ''
+    };
+
+    const validationSteps: ValidateStepFunction[] =
+      [
+        validationAuthCardanoMiddleware,
+        validationCardanoSignDataMiddleware
+      ];
+
+    const result = await generateValidationProcess(this, url, payloadValidation, validationSteps);
+
+    const errorsFormated = convertErrorFormat(result.errors);
+    const payloadAfterValidated: CardanoSignatureRequest = {
+      ...result.payloadAfterValidated as CardanoSignatureRequest,
+      currentAddress,
+      errors: errorsFormated,
+      id
+    };
+
+    return this.requestService.addConfirmationCardano(id, url, 'cardanoSignatureRequest', payloadAfterValidated, {})
+      .then(({ isApproved, payload }) => {
+        if (isApproved) {
+          if (payload) {
+            return payload;
+          } else {
+            throw new CardanoProviderError(CardanoProviderErrorType.INVALID_REQUEST, t('Not found signature'));
+          }
+        } else {
+          throw new CardanoProviderError(CardanoProviderErrorType.SIGN_DATA_DECLINED);
+        }
+      });
+  }
+
+  // Todo: Add validate for this method
+  public async cardanoSignTx (id: string, url: string, param: RequestCardanoSignTransaction, currentAddress: string): Promise<ResponseCardanoSignTransaction> {
+    const { partialSign, tx: txHex } = param;
+    const tx = CardanoWasm.Transaction.from_hex(txHex);
+    const inputs = tx.body().inputs();
+    const outputs = tx.body().outputs();
+
+    const estimateCardanoFee = tx.body().fee().to_str();
+
+    const authInfoMap = await this.getAuthList();
+    const authInfo = authInfoMap[stripUrl(url)];
+
+    if (!authInfo) {
+      throw new CardanoProviderError(CardanoProviderErrorType.REFUSED_REQUEST, t('Not found auth info'));
+    }
+
+    let requireKeyHashes: string[] = [];
+    let networkKey = authInfo?.currentNetworkMap.cardano;
+    let autoActiveChain = false;
+
+    if (authInfo?.isAllowed) {
+      autoActiveChain = true;
+    }
+
+    const currentCardanoNetwork = this.requestService.getDAppChainInfo({
+      autoActive: autoActiveChain,
+      accessType: 'cardano',
+      defaultChain: networkKey,
+      url
+    });
+
+    networkKey = currentCardanoNetwork?.slug || 'cardano';
+    const allUtxos = await this.chainService.getUtxosByAddress(currentAddress, networkKey);
+
+    const outputTransactionUnSpend = CardanoWasm.TransactionOutputs.new();
+
+    inputs.to_js_value().forEach((input) => {
+      const availableUtxo = allUtxos.find((utxo) => {
+        const txIn = utxo.input();
+
+        return txIn.transaction_id().to_hex() === input.transaction_id && txIn.index() === input.index;
+      });
+
+      if (availableUtxo) {
+        const keyHash = availableUtxo.output().address().payment_cred()?.to_keyhash()?.to_hex();
+
+        if (keyHash) {
+          requireKeyHashes.push(keyHash);
+        }
+
+        outputTransactionUnSpend.add(availableUtxo.output());
+      }
+    });
+
+    const addressInputMap = getBalanceAddressMap(outputTransactionUnSpend);
+    const addressOutputMap = getBalanceAddressMap(outputs);
+    const addressInputAmountMap: Record<string, AddressCardanoTransactionBalance> = {};
+    const addressOutputAmountMap: Record<string, AddressCardanoTransactionBalance> = {};
+    let transactionValue = CardanoWasm.Value.new(CardanoWasm.BigNum.from_str('0'));
+
+    for (const address in addressInputMap) {
+      const output = addressOutputMap[address] ?? CardanoWasm.Value.new(CardanoWasm.BigNum.from_str('0'));
+      const input = addressInputMap[address];
+
+      const amount = input.checked_sub(output);
+
+      if (amount.is_zero()) {
+        continue;
+      }
+
+      addressInputAmountMap[address] = { values: convertValueToAsset(input) };
+      addressOutputAmountMap[address] = { values: convertValueToAsset(output) };
+
+      if (isSameAddress(currentAddress, address)) {
+        if (!validateAddressNetwork(address, currentCardanoNetwork)) {
+          throw new CardanoProviderError(CardanoProviderErrorType.ACCOUNT_CHANGED, t('Current network is changed'));
+        }
+
+        transactionValue = transactionValue.checked_add(amount);
+        addressInputAmountMap[address].isOwner = true;
+        addressOutputAmountMap[address].isOwner = true;
+      }
+
+      // Check if address is valid with current network
+      if (!validateAddressNetwork(address, currentCardanoNetwork)) {
+        throw new CardanoProviderError(CardanoProviderErrorType.INVALID_REQUEST, t('Current network is not match with input address'));
+      }
+    }
+
+    for (const address in addressOutputMap) {
+      if (!validateAddressNetwork(address, currentCardanoNetwork)) {
+        throw new CardanoProviderError(CardanoProviderErrorType.INVALID_REQUEST, t('Current network is not match with output address'));
+      }
+
+      if (!addressInputAmountMap[address] && !addressOutputMap[address].is_zero()) {
+        addressOutputAmountMap[address] = { values: convertValueToAsset(addressOutputMap[address]), isRecipient: true };
+      }
+    }
+
+    const transactionBody = tx.body();
+    const getSpecificUtxo = this.chainService.getSpecificUtxo.bind(this);
+
+    requireKeyHashes.push(...extractKeyHashFromCertificate(transactionBody.certs()));
+    requireKeyHashes.push(...extractKeyHashesFromWithdrawals(transactionBody.withdrawals()));
+    requireKeyHashes.push(...extractKeyHashesFromRequiredSigners(transactionBody.required_signers()));
+    requireKeyHashes.push(...(await extractKeyHashesFromCollaterals(transactionBody.collateral(), getSpecificUtxo(networkKey))));
+    requireKeyHashes.push(...extractKeyHashesFromScripts(tx.witness_set().native_scripts()));
+
+    requireKeyHashes = [...new Set(requireKeyHashes)];
+    const addressRequireKeyTypes: CardanoKeyType[] = [];
+    const keyHashAddressMap: Record<string, CardanoKeyType> = {};
+
+    const pair = keyring.getPair(currentAddress);
+
+    if (pair) {
+      const paymentPubKey = CardanoWasm.Bip32PublicKey.from_hex(pair.cardano.paymentPubKey).to_raw_key().hash().to_hex();
+      const stakePubKey = CardanoWasm.Bip32PublicKey.from_hex(pair.cardano.stakePubKey).to_raw_key().hash().to_hex();
+
+      keyHashAddressMap[paymentPubKey] = 'payment';
+      keyHashAddressMap[stakePubKey] = 'stake';
+    } else {
+      throw new CardanoProviderError(CardanoProviderErrorType.INVALID_REQUEST);
+    }
+
+    const needForeignKeyHash = requireKeyHashes.some((key) => {
+      const ownKeyHash = keyHashAddressMap[key];
+
+      if (ownKeyHash) {
+        addressRequireKeyTypes.push(ownKeyHash);
+
+        return false;
+      }
+
+      return true;
+    });
+
+    const needOwnerKeyHash = requireKeyHashes.some((key) => {
+      const ownKeyHash = keyHashAddressMap[key];
+
+      if (ownKeyHash) {
+        addressRequireKeyTypes.push(ownKeyHash);
+
+        return true;
+      }
+
+      return false;
+    });
+
+    if (!needOwnerKeyHash) {
+      throw new CardanoProviderError(CardanoProviderErrorType.PROOF_GENERATION_FAILED, t('Not found owner key hash'));
+    }
+
+    if (needForeignKeyHash && !partialSign) {
+      throw new CardanoProviderError(CardanoProviderErrorType.INVALID_REQUEST, 'Not support foreign key hash yet');
+    }
+
+    const result: CardanoTransactionDappConfig = {
+      id,
+      txInputs: addressInputAmountMap,
+      txOutputs: addressOutputAmountMap,
+      addressRequireKeyTypes,
+      value: convertValueToAsset(transactionValue),
+      estimateCardanoFee,
+      from: currentAddress,
+      cardanoPayload: txHex,
+      networkKey
+    };
+
+    return this.requestService.addConfirmationCardano(id, url, 'cardanoSignTransactionRequest', result, {})
+      .then(({ isApproved, payload }) => {
+        if (isApproved) {
+          if (payload) {
+            return payload;
+          } else {
+            throw new CardanoProviderError(CardanoProviderErrorType.INVALID_REQUEST, t('Not found signature'));
+          }
+        } else {
+          throw new CardanoProviderError(CardanoProviderErrorType.SIGN_TRANSACTION_DECLINED);
+        }
+      });
+  }
+
+  public async cardanoSubmitTx (id: string, url: string, txHex: string): Promise<string> {
+    const currentNetwork = this.requestService.getDAppChainInfo({
+      autoActive: true,
+      accessType: 'cardano',
+      url
+    });
+
+    const networkKey = currentNetwork?.slug || 'cardano_preproduction';
+
+    const cardanoApi = this.chainService.getCardanoApi(networkKey);
+
+    return await cardanoApi.sendCardanoTxReturnHash(txHex);
+  }
 
   public getConfirmationsQueueSubject (): BehaviorSubject<ConfirmationsQueue> {
     return this.requestService.confirmationsQueueSubject;
@@ -1290,7 +1544,9 @@ export default class KoniState {
     return this.requestService.confirmationsQueueSubjectTon;
   }
 
-
+  public getConfirmationsQueueSubjectCardano (): BehaviorSubject<ConfirmationsQueueCardano> {
+    return this.requestService.confirmationsQueueSubjectCardano;
+  }
 
   public async completeConfirmation (request: RequestConfirmationComplete) {
     return await this.requestService.completeConfirmation(request);
@@ -1300,20 +1556,15 @@ export default class KoniState {
     return await this.requestService.completeConfirmationTon(request);
   }
 
-
+  public async completeConfirmationCardano (request: RequestConfirmationCompleteCardano) {
+    return await this.requestService.completeConfirmationCardano(request);
+  }
 
   private async onMV3Update () {
     const migrationStatus = await SWStorage.instance.getItem('mv3_migration');
 
     if (!migrationStatus || migrationStatus !== 'done') {
-      if (isManifestV3) {
-        // Open migration tab
-        const url = `${chrome.runtime.getURL('index.html')}#/mv3-migration`;
-
-        await openPopup(url);
-
-        // migrateMV3LocalStorage will be called when user open migration tab with data from localStorage on frontend
-      } else {
+      if (!isManifestV3) {
         this.migrateMV3LocalStorage(JSON.stringify(self.localStorage)).catch(console.error);
       }
     }

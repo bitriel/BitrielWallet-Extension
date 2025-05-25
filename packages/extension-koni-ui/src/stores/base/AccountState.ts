@@ -1,12 +1,12 @@
 // Copyright 2019-2022 @bitriel/extension-koni-ui authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { AddressBookInfo, KeyringState } from '@bitriel/extension-base/background/KoniTypes';
 import { AccountsContext } from '@bitriel/extension-base/background/types';
 import { AccountJson, AccountProxy } from '@bitriel/extension-base/types';
 import { AccountState, ReduxStatus } from '@bitriel/extension-koni-ui/stores/types';
 import { isAccountAll } from '@bitriel/extension-koni-ui/utils';
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 const initialState: AccountState = {
   // CurrentAccount

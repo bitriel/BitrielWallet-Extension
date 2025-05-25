@@ -1,12 +1,12 @@
 // Copyright 2019-2022 @bitriel/extension-base
 // SPDX-License-Identifier: Apache-2.0
 
+import { SignedBalance } from '@equilab/api/genshiro/interfaces';
 import { _AssetType } from '@bitriel/chain-list/types';
 import { APIItemState } from '@bitriel/extension-base/background/KoniTypes';
 import { _getTokenOnChainAssetId } from '@bitriel/extension-base/services/chain-service/utils';
 import { BalanceItem, SubscribeSubstratePalletBalance } from '@bitriel/extension-base/types';
 import { filterAssetsByChainAndType } from '@bitriel/extension-base/utils';
-import { SignedBalance } from '@equilab/api/genshiro/interfaces';
 import BigN from 'bignumber.js';
 
 import { BN, BN_ZERO } from '@polkadot/util';

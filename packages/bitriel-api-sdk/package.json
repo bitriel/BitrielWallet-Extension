@@ -1,16 +1,16 @@
 {
   "author": "S2kael<laiducminh1002@gmail.com>",
-  "bugs": "https://github.com/Koniverse/Subwallet-V2/issues",
+  "bugs": "https://github.com/bitriel/BitrielWallet-Extension/issues",
   "contributors": [],
-  "description": "Sdk for subwallet api",
-  "homepage": "https://github.com/Koniverse/Subwallet-V2/tree/master/packages/bitriel-api-sdk#readme",
+  "description": "Sdk for bitriel api",
+  "homepage": "https://github.com/bitriel/BitrielWallet-Extension/tree/master/packages/bitriel-api-sdk#readme",
   "license": "Apache-2.0",
   "maintainers": [],
   "name": "@bitriel/bitriel-api-sdk",
   "repository": {
     "directory": "packages/bitriel-api-sdk",
     "type": "git",
-    "url": "https://github.com/Koniverse/Subwallet-V2.git"
+    "url": "https://github.com/bitriel/BitrielWallet-Extension.git"
   },
   "sideEffects": [
     "./detectPackage.js",
@@ -20,7 +20,7 @@
   "version": "1.0.4",
   "main": "index.js",
   "dependencies": {
-    "@bitriel/chain-list": "^1.0.0",
-    "@polkadot/util": "^13.5.1"
+    "@bitriel/chain-list": "1.0.0",
+    "@polkadot/util": "^13.2.3"
   }
 }

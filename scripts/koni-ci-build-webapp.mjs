@@ -45,8 +45,8 @@ const buildDateString = new Date().toISOString().slice(0, 19).replaceAll(':', '-
 
 function runDeployWebApp(alias) {
   discordHook.send('Finish build version ' + npmGetVersion() + ' | ' + refName + ': ' + commitMessage)
-  execSync(`netlify deploy --dir ./packages/webapp/build --site subwallet-app --alias ${alias}`);
-  discordHook.send(`Update new web app: https://${alias}--subwallet-app.netlify.app/`)
+  execSync(`netlify deploy --dir ./packages/webapp/build --site bitriel-app --alias ${alias}`);
+  discordHook.send(`Update new web app: https://${alias}--bitriel-app.netlify.app/`)
 }
 
 runClean();

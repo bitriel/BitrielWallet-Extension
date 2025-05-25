@@ -1,25 +1,25 @@
 {
   "author": "Koni Studio",
-  "bugs": "https://github.com/Koniverse/Subwallet-V2/issues",
+  "bugs": "https://github.com/bitriel/BitrielWallet-Extension/issues",
   "contributors": [],
   "description": "A web runner simulate background.js can be use on mobile or environment support web view",
-  "homepage": "https://github.com/Koniverse/Subwallet-V2/tree/master/packages/web-runner#readme",
+  "homepage": "https://github.com/bitriel/BitrielWallet-Extension/tree/master/packages/web-runner#readme",
   "license": "Apache-2.0",
   "maintainers": [],
   "name": "@bitriel/web-runner",
   "repository": {
     "directory": "packages/web-runner",
     "type": "git",
-    "url": "https://github.com/Koniverse/Subwallet-V2.git"
+    "url": "https://github.com/bitriel/BitrielWallet-Extension.git"
   },
   "sideEffects": false,
   "type": "module",
   "version": "1.0.4",
   "dependencies": {
     "@babel/runtime": "^7.20.6",
-    "@bitriel/extension-base": "^1.0.4",
-    "@bitriel/extension-inject": "^1.0.4",
-    "@bitriel/extension-koni-ui": "^1.0.4",
+    "@bitriel/extension-base": "^1.1.0",
+    "@bitriel/extension-inject": "^1.1.0",
+    "@bitriel/extension-koni-ui": "^1.1.0",
     "@emurgo/cardano-serialization-lib-browser": "^13.2.0"
   },
   "devDependencies": {

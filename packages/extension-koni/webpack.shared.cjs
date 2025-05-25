@@ -61,7 +61,7 @@ const _additionalEnv = {
   SIMPLE_SWAP_API_KEY: JSON.stringify(process.env.SIMPLE_SWAP_API_KEY),
   UNISWAP_API_KEY: JSON.stringify(process.env.UNISWAP_API_KEY),
   KYBER_CLIENT_ID: JSON.stringify(process.env.KYBER_CLIENT_ID),
-  SUBWALLET_API: JSON.stringify(process.env.SUBWALLET_API),
+  BITRIEL_API: JSON.stringify(process.env.BITRIEL_API),
   BLOCKFROST_API_KEY_MAIN: JSON.stringify(process.env.BLOCKFROST_API_KEY_MAIN),
   BLOCKFROST_API_KEY_PREP: JSON.stringify(process.env.BLOCKFROST_API_KEY_PREP),
   MELD_API_KEY: JSON.stringify(process.env.MELD_API_KEY),
@@ -183,7 +183,7 @@ module.exports = (entry, alias = {}, isFirefox = false) => {
     resolve: {
       alias: packages.reduce((alias, p) => ({
         ...alias,
-        [`@subwallet/${p}`]: path.resolve(__dirname, `../${p}/src`)
+        [`@bitriel/${p}`]: path.resolve(__dirname, `../${p}/src`)
       }), {
         ...alias,
         'react/jsx-runtime': require.resolve('react/jsx-runtime'),

@@ -1,13 +1,13 @@
 {
   "author": "Koni Studio",
-  "bugs": "https://github.com/Koniverse/Subwallet-V2/issues",
-  "homepage": "https://github.com/Koniverse/Subwallet-V2#readme",
+  "bugs": "https://github.com/bitriel/BitrielWallet-Extension/issues",
+  "homepage": "https://github.com/bitriel/BitrielWallet-Extension#readme",
   "license": "Apache-2.0",
   "packageManager": "yarn@3.0.1",
   "private": true,
   "repository": {
     "type": "git",
-    "url": "https://github.com/Koniverse/Subwallet-V2.git"
+    "url": "https://github.com/bitriel/BitrielWallet-Extension.git"
   },
   "sideEffects": false,
   "version": "1.0.4",
@@ -45,8 +45,8 @@
     "start": "yarn watch",
     "test": "polkadot-dev-run-test --detectOpenHandles --testPathIgnorePatterns='/node_modules/|.*/ignore-.*\\.(test|spec)\\..*'",
     "test:one": "polkadot-dev-run-test --detectOpenHandles",
+    "update:bitriel-libs": "yarn up @bitriel/chain-list @subwallet/keyring @subwallet/ui-keyring",
     "update:polkadot-libs": "yarn up @polkadot/api @polkadot/api-base @polkadot/rpc-provider @polkadot/api-contract @polkadot/networks @polkadot/types @polkadot/types-augment @polkadot/types-known @polkadot/util @polkadot/util-crypto @polkadot/api-derive @polkadot/apps-config @polkadot/ui-settings @polkadot/hw-ledger @polkadot/phishing @polkadot/util @polkadot/util-crypto @polkadot/x-global",
-    "update:subwallet-libs": "yarn up @bitriel/chain-list @subwallet/keyring @subwallet/ui-keyring",
     "watch": "cd packages/extension-koni && yarn polkadot-exec-webpack --config webpack.config.cjs --mode development --watch",
     "watch-dev": "cd packages/extension-koni && yarn polkadot-exec-webpack --config webpack.config.cjs --mode development --watch -d inline-source-map",
     "web-runner:build": "cd packages/web-runner && rm -rf ./build && yarn webpack --config webpack.config.cjs --mode production",

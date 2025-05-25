@@ -1,8 +1,8 @@
 // Copyright 2017-2022 @bitriel/bitriel-api-sdk authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { BuildCardanoTxParams, getFirstNumberAfterSubstring, POPULAR_CARDANO_ERROR_PHRASE, toUnit } from '@bitriel/bitriel-api-sdk/cardano/utils';
-import { SWApiResponse } from '@bitriel/bitriel-api-sdk/types';
+import { BuildCardanoTxParams, getFirstNumberAfterSubstring, POPULAR_CARDANO_ERROR_PHRASE, toUnit } from './utils';
+import { SWApiResponse } from '../types';
 
 export async function fetchUnsignedPayload (baseUrl: string, params: BuildCardanoTxParams) {
   const searchParams = new URLSearchParams({

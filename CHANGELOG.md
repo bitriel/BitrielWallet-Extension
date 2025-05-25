@@ -1,6 +1,6 @@
 # CHANGELOG
 
-## 1.0.4
+## 1.3.38
 Build date: May 23, 2025.
 
 Features & Update:
@@ -1797,7 +1797,7 @@ Bugs fixed:
 - Fixed bugs on the Staking screens (#1475)
 - Fixed bug show transaction fee on the History detail screen (#1580)
 
-Update `@bitriel/chain-list@0.2.4` (#1590):
+Update `@subwallet/chain-list@0.2.4` (#1590):
 - Supported LP Tokens on Kintsugi (LP kBTC-USDT, LP KSM-kBTC, LP KSM-KINT)
 
 ## 1.0.12
@@ -1809,7 +1809,7 @@ Features & Update:
 Bugs fixed:
 - Fixed UI bugs on the Expand view (#1569)
 
-Update `@bitriel/chain-list@0.2.3` (#1576):
+Update `@subwallet/chain-list@0.2.3` (#1576):
 - Add support for vFIL (Bifrost Polkadot), vETH (Ethereum)
 
 ## 1.0.11
@@ -1823,7 +1823,7 @@ Features & Update:
 Bugs fixed:
 - Fix bug detecting on-chain attributes for WASM NFTs (#1511)
 
-Update `@bitriel/chain-list@0.2.2` (#1556):
+Update `@subwallet/chain-list@0.2.2` (#1556):
 - Integrate Polkadot Bridge Hub, Kusama Bridge Hub, Polkadot Collectives Parachain
 - Add logo for $CP token on Moonbeam
 
@@ -1840,7 +1840,7 @@ Bugs fixed:
 - Fixed bug Error fetching nominator data for Calamari (#1538)
 - Fixed bug Show incorrect Destination Chain fee on XCM history detail (#1550)
 
-Update `@bitriel/chain-list@0.2.1` (#1541):
+Update `@subwallet/chain-list@0.2.1` (#1541):
 - Add INW (Aleph Zero) token
 - Add support for Avail testnet (Kate)
 - Re-name Statemint & Statemint Parachain to Polkadot Asset Hub & Kusama Asset Hub
@@ -1864,7 +1864,7 @@ Bugs fixed:
 - Fixed bug Do not transfer BNC token on the Bifrost Polkadot (#1522)
 - Fixed bug "Bad signature" when personal sign with EVM Ledger account (#1533)
 
-Update `@bitriel/chain-list@0.1.11`:
+Update `@subwallet/chain-list@0.1.11`:
 - Add vsTokens and vTokens
 - Add VERSE token
 - Support WASM NFT Collection on the Astar network
@@ -1992,7 +1992,7 @@ Build date: May 06, 2023.
 Update:
 - Improve transaction UX (#1254)
 - Update wake up / sleep with history and price service (#1239)
-- Update get chain, assets logo direct from @bitriel/chain-list package (#1273)
+- Update get chain, assets logo direct from @subwallet/chain-list package (#1273)
 - Update fetching staking info with middleware service (#1263)
 
 Bugs:
@@ -2779,7 +2779,7 @@ Changes:
 
 Changes:
 
-- Ensure `@bitriel/extension-mocks` is correctly listed as devDependency
+- Ensure `@subwallet/extension-mocks` is correctly listed as devDependency
 
 
 ## 0.42.3 Dec 27, 2021

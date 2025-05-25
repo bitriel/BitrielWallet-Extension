@@ -161,8 +161,8 @@ function tweakCjsPaths (buildDir) {
           .readFileSync(thisPath, 'utf8')
           .replace(
             // require("@polkadot/$1/$2")
-            /require\("@subwallet\/([a-z-]*)\/(.*)"\)/g,
-            'require("@subwallet/$1/cjs/$2")'
+            /require\("@bitriel\/([a-z-]*)\/(.*)"\)/g,
+            'require("@bitriel/$1/cjs/$2")'
           )
       );
     });
@@ -541,7 +541,7 @@ async function buildJs (repoPath, dir, locals) {
   const json = JSON.parse(fs.readFileSync(path.join(process.cwd(), './package.json'), 'utf-8'));
   const { name, version } = json;
 
-  if (!json.name.startsWith('@subwallet/')) {
+  if (!json.name.startsWith('@bitriel/')) {
     return;
   }
 
@@ -618,7 +618,7 @@ async function main () {
   for (const dir of dirs) {
     const { name } = JSON.parse(fs.readFileSync(path.join(process.cwd(), dir, './package.json'), 'utf-8'));
 
-    if (name.startsWith('@subwallet/')) {
+    if (name.startsWith('@bitriel/')) {
       locals.push([dir, name]);
     }
   }

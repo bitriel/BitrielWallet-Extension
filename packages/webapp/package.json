@@ -15,7 +15,7 @@
   },
   "sideEffects": false,
   "type": "module",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "dependencies": {
     "@babel/runtime": "^7.20.6",
     "@bitriel/extension-base": "^1.0.4",

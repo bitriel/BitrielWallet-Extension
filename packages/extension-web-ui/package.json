@@ -14,10 +14,10 @@
   },
   "sideEffects": true,
   "type": "module",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "dependencies": {
     "@babel/runtime": "^7.20.6",
-    "@bitriel/chain-list": "0.2.104",
+    "@bitriel/chain-list": "1.0.2",
     "@bitriel/extension-base": "^1.0.4",
     "@bitriel/extension-chains": "^1.0.4",
     "@bitriel/extension-dapp": "^1.0.4",

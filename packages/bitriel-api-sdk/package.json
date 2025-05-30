@@ -17,10 +17,10 @@
     "./detectPackage.cjs"
   ],
   "type": "module",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "main": "index.js",
   "dependencies": {
-    "@bitriel/chain-list": "1.0.0",
+    "@bitriel/chain-list": "1.0.2",
     "@polkadot/util": "^13.2.3"
   }
 }
